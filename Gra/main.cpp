@@ -35,24 +35,28 @@ public:
 
     CelestialBody(){}
 
-    int step(float time)
+    int step()
     {
-        czasf=czasf+time;
+       if(dziala==0)
+       {
+       distancez=distancez-przesuniecie;
+       }
 
         return 0;
     }
 
-    void draw()
+    void draw(int kat)
     {
 
 
        glPushMatrix();
-       if(orbitt!=0){
-       glRotated((czasf/orbitt)*360, 0.0, 0.0, 1.0);
-       }
-       glTranslated(0.0, distance*skala2, 0.0);
-       glRotated((czasf/spint)*360, 0, 0.0, 1.0);
-       draw_cube(diameter*skala,(1.0f/255)*color1,(1.0f/255)*color2,(1.0f/255)*color3);
+
+       glRotated(kat*2, 0.0, 0.0, 1.0);
+       glTranslated(distancex, distancey,distancez);
+
+       glRotated(90*ustawienie1, 0.0, 1.0, 0.0);
+       glRotated(90*ustawienie2, 1.0, 0.0, 0.0);
+       draw_cube(100,(1.0f/255)*color1,(1.0f/255)*color2,(1.0f/255)*color3);
        glPopMatrix();
 
 
@@ -117,19 +121,21 @@ public:
     }
 
 
-    std::string nazwa;
-    int distance;
+
+    int distancez;
+    int distancex;
+    int distancey;
     int diameter;
     double spint;
-    double orbitt;
-    double gravity;
-    int moons;
+    int przesuniecie=10;
+
     int color1;
     int color2;
     int color3;
-    double skala=0.1;
-    double skala2=0.2;
-    float czasf=0;
+    bool dziala=1;
+    int ustawienie1=0;
+    int ustawienie2=0;
+
 
 
 
@@ -159,58 +165,13 @@ void set_viewport(int width, int height)
 
 int main()
 {
-    std::fstream file("solar_system.txt");
-    std::vector<CelestialBody> rates;
-    if (file.is_open())
-    {
-        std::string line;
-        std::getline(file, line);
-        while (std::getline(file, line))
-        {
-            std::stringstream str(line);
-            std::string double_str;
-            std::vector<std::string> double_str1;
-            int i=0;
-            while(i!=7)
-            {
-                std::getline(str, double_str, '\t');
-                if(double_str==""){}
-                else{
-                    double_str1.emplace_back(double_str);
-                    i++;
-                }
-            }
-            CelestialBody er;
-            std::string  alae;
-            std::getline(str, alae, ' ');
-            er.color1=std::stoi(alae);
-            std::string  alae1;
-            std::getline(str, alae1, ' ');
-            er.color2=std::stoi(alae1);
-            std::string  alae2;
-            std::getline(str, alae2, ' ');
-            er.color3=std::stoi(alae2);
-            er.nazwa=double_str1[0];
-            er.distance = std::stod(double_str1[1]);
-            er.diameter = std::stoi(double_str1[2]);
-            er.spint = std::stod(double_str1[3]);
-            er.orbitt = std::stod(double_str1[4]);
-            er.gravity = std::stod(double_str1[5]);
-            er.moons = std::stoi(double_str1[6]);
-            rates.emplace_back(er);
-        }
-    }
 
 
-
-    // create the window
-    sf::Window window(sf::VideoMode(1024, 768), "SFML OpenGL Template", sf::Style::Default, sf::ContextSettings(32));
+    sf::Window window(sf::VideoMode(1024, 768), "Tetris3D", sf::Style::Default, sf::ContextSettings(32));
     window.setVerticalSyncEnabled(true);
 
-    // activate the window
     window.setActive(true);
 
-    // set viewport according to current window size
     set_viewport(window.getSize().x, window.getSize().y);
 
     glClearColor(0, 0, 0, 1);
@@ -219,7 +180,6 @@ int main()
     glEnable(GL_SMOOTH);
     glShadeModel(GL_SMOOTH);
 
-    // setup lights
 
     GLfloat light_position[] = { 2.0, 0.0, 2.0, 1.0 };
     GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
@@ -238,17 +198,12 @@ int main()
 
     glEnable(GL_NORMALIZE) ;
 
-    // load resources, initialize the OpenGL states, ...
-
-    // run the main loop
     bool running = true;
 
-    sf::Clock clk;
 
 
-    double sekunda=0;
-    int licznik=0;
 
+    int ala=0;
     while (running)
     {
         // handle events
@@ -257,57 +212,35 @@ int main()
         {
 
 
+            if (event.type == sf::Event::MouseWheelScrolled)
+            {
+                ala=ala+event.mouseWheel.delta;
+
+
+                running = false;
+            }
+
             if (event.type == sf::Event::Closed)
             {
-                // end the program
+
                 running = false;
             }
             else if (event.type == sf::Event::Resized)
             {
-                // adjust the viewport when the window is resized
+
                 set_viewport(event.size.width, event.size.height);
             }
         }
 
-        // clear the buffers
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glColorMaterial (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE) ;
         glEnable (GL_COLOR_MATERIAL);
 
-        // draw stuff
+
 
         glPushMatrix();
 
-        //float rot = clk.getElapsedTime().asSeconds()*365.25;// 1sekunda=1rok
-        float rot = clk.getElapsedTime().asSeconds()*30.4375;// 1sekunda=1miesiąc
-        //float rot = clk.getElapsedTime().asSeconds()*91.3125;// 1sekunda=1dzień
-        glTranslated(0.0, 0.0, 0.0);
-
-
-         sf::Time elapsed1 = clk.restart();
-
-                   /*
-                   licznik++;
-                   sekunda=sekunda+elapsed1.asSeconds();
-                   //std::cout<<elapsed.asMicroseconds()<<std::endl;
-                   if(sekunda>1.0)
-                   {
-                       sekunda=sekunda-1.0;
-                       //std::cout<<licznik<<std::endl;
-                       licznik=0;
-                   }
-                   */
-
-        for(int i=0; i<9;i++)
-        {
-            rates[i].step(rot);
-            rates[i].draw();
-
-
-        }
-
-
-        // end the current frame (internally swaps the front and back buffers)
         window.display();
     }
 
