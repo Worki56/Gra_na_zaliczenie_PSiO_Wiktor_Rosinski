@@ -28,21 +28,25 @@
 
 
 
-class CelestialBody
+class Kwadrat
 {
 
 public:
 
-    CelestialBody(){}
-
-    int step()
+    Kwadrat(int x,int y ,int z)
     {
-       if(dziala==0)
+        distancex=x;
+        distancey=y;
+        distancez=z;
+
+    }
+
+    void step()
+    {
+       if(dziala==1)
        {
        distancez=distancez-przesuniecie;
        }
-
-        return 0;
     }
 
     void draw(int kat)
@@ -56,7 +60,7 @@ public:
 
        glRotated(90*ustawienie1, 0.0, 1.0, 0.0);
        glRotated(90*ustawienie2, 1.0, 0.0, 0.0);
-       draw_cube(100,(1.0f/255)*color1,(1.0f/255)*color2,(1.0f/255)*color3);
+       draw_cube(diameter,(1.0f/255)*color1,(1.0f/255)*color2,(1.0f/255)*color3);
        glPopMatrix();
 
 
@@ -122,10 +126,10 @@ public:
 
 
 
-    int distancez;
-    int distancex;
-    int distancey;
-    int diameter;
+    int distancez=1000;
+    int distancex=0;
+    int distancey=0;
+    int diameter=100;
     double spint;
     int przesuniecie=10;
 
@@ -143,7 +147,98 @@ public:
 
 };
 
+class Ksztalt
+{
+public:
+    int diameter=100;
+    std::vector<Kwadrat> elementy;
+    Ksztalt()
+    {
+       color1=( std::rand() % 255 );
+        color2=( std::rand() % 255 );
+        color3=( std::rand() % 255 );
+        iloelem=( std::rand() % 5 );
 
+        switch (iloelem)
+        {
+        case 0:
+        elementy.emplace_back(0,0,0);
+        elementy.emplace_back(0,0,diameter);
+        elementy.emplace_back(0,diameter,0);
+        elementy.emplace_back(0,-diameter,0);
+        break;
+        case 1:
+            elementy.emplace_back(0,0,0);
+            elementy.emplace_back(0,0,diameter);
+            elementy.emplace_back(0,diameter,diameter);
+            elementy.emplace_back(0,diameter,0);
+            elementy.emplace_back(diameter,0,0);
+            elementy.emplace_back(diameter,0,diameter);
+            elementy.emplace_back(diameter,diameter,diameter);
+            elementy.emplace_back(diameter,diameter,0);
+
+        break;
+        case 2:
+            elementy.emplace_back(0,0,0);
+            elementy.emplace_back(0,0,diameter);
+            elementy.emplace_back(0,0,2*diameter);
+            elementy.emplace_back(0,0,3*diameter);
+        break;
+        case 3:
+            elementy.emplace_back(0,0,0);
+            elementy.emplace_back(0,0,diameter);
+            elementy.emplace_back(0,diameter,0);
+            elementy.emplace_back(0,2*diameter,0);
+
+        break;
+        case 4:
+            elementy.emplace_back(0,0,0);
+            elementy.emplace_back(0,diameter,0);
+            elementy.emplace_back(0,diameter,diameter);
+            elementy.emplace_back(0,2*diameter,diameter);
+
+        break;
+        case 5:
+            elementy.emplace_back(0,0,0);
+            elementy.emplace_back(0,0,diameter);
+            elementy.emplace_back(0,diameter,diameter);
+            elementy.emplace_back(0,-diameter,diameter);
+            elementy.emplace_back(0,0,2*diameter);
+        break;
+
+
+        }
+
+
+
+
+    }
+
+    void ahk(){}
+
+    int step()
+    {
+        for(auto &reca : elementy)
+        {
+        reca.step();
+
+
+        }
+
+        return 0;
+    }
+
+    int color1;
+    int color2;
+    int color3;
+    int iloelem;
+
+
+
+
+
+
+};
 
 
 
@@ -166,6 +261,7 @@ void set_viewport(int width, int height)
 int main()
 {
 
+int diameter=100;
 
     sf::Window window(sf::VideoMode(1024, 768), "Tetris3D", sf::Style::Default, sf::ContextSettings(32));
     window.setVerticalSyncEnabled(true);
