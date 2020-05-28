@@ -5,6 +5,8 @@ CONFIG -= qt
 INCLUDEPATH += "C:/SFML-2.5.1/include"
 SOURCES += \
         main.cpp
+        kwadrat.hpp
+        ksztalt.hpp
 
 LIBS += -L"C:/SFML-2.5.1/lib"
 LIBS += -lOpenGL32 -lglu32
