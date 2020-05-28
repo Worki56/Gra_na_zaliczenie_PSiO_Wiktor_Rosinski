@@ -1,3 +1,4 @@
+ QT -= core
 TEMPLATE = app
 CONFIG += console c++17
 CONFIG -= app_bundle
@@ -5,8 +6,7 @@ CONFIG -= qt
 INCLUDEPATH += "C:/SFML-2.5.1/include"
 SOURCES += \
         main.cpp
-        kwadrat.hpp
-        ksztalt.hpp
+
 
 LIBS += -L"C:/SFML-2.5.1/lib"
 LIBS += -lOpenGL32 -lglu32
@@ -15,3 +15,10 @@ CONFIG(debug, debug|release){
 } else {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-system -lsfml-window
 }
+
+
+
+HEADERS += \
+    ksztalt.hpp \
+    kwadrat.hpp
+

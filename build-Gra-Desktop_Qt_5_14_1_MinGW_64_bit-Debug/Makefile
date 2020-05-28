@@ -54,7 +54,8 @@ OBJECTS_DIR   = .
 SOURCES       = ..\Gra\main.cpp 
 OBJECTS       = main.o
 
-DIST          =   ..\Gra\main.cpp
+DIST          =  ksztalt.hpp \
+		kwadrat.hpp ..\Gra\main.cpp
 QMAKE_TARGET  = Gra
 DESTDIR        =  #avoid trailing-slash linebreak
 TARGET         = Gra.exe
