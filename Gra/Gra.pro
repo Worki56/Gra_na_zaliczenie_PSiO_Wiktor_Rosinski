@@ -21,5 +21,5 @@ CONFIG(debug, debug|release){
 HEADERS += \
     ksztalt.hpp \
     kwadrat.hpp \
-    ustalone.hpp
+    ustalone.hpp \
 

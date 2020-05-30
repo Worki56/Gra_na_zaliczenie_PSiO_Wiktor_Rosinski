@@ -1,7 +1,7 @@
 #ifndef ustalone_hpp
 #define ustalone_hpp
-#include "kwadrat.hpp"
 #include "ksztalt.hpp"
+#include "kwadrat.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -10,21 +10,29 @@
 #include <string>
 #include <vector>
 #include <math.h>
-#define GL_SILENCE_DEPRECATION
 
-#include <SFML/OpenGL.hpp>
-
-#ifdef __APPLE__
-#include <OpenGL/glu.h> // macOS
-#else
-#include <GL/glu.h> // Windows/Linux
-#endif
 
 class Ustalone {
 public:
-   std::vector<Kwadrat> elementyus;
+std::vector<Kwadrat> elementyus;
+friend class Ksztalt;
+
 int klo=0;
 Ustalone(){}
+
+
+void step(int kat)
+{
+    for(auto &reca : elementyus)
+    {
+        reca.step(kat);
+
+
+    }
+
+
+}
+
 void sprawdzanie()
 {
     klo=0;
@@ -64,23 +72,15 @@ void sprawdzanie()
         int asdd=0;
         for(auto &rec : elementyus)
         {
-
-        if(reca==rec.distancez1 )
-        {
-             elementyus.erase(elementyus.begin()+asdd);
-
-
-        }
-        else if(reca<rec.distancez1)
-        {
-         rec.distancez1=rec.distancez1-100;   
-          
-         
-        }
-        
-        
-        
-        asdd++;
+            if(reca==rec.distancez1 )
+            {
+                elementyus.erase(elementyus.begin()+asdd);
+            }
+            else if(reca<rec.distancez1)
+            {
+                rec.distancez1=rec.distancez1-100;
+            }
+            asdd++;
         }
         for(auto &reca : pelne)
         {

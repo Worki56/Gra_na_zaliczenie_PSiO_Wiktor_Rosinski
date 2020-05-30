@@ -9,20 +9,11 @@
 #include <ctime>
 #include <string>
 #include <vector>
-#include <memory>
 #include <math.h>
-#include <fstream>
-#include <sstream>
+#include <cstdlib>
+#include <ctime>
 
-#define GL_SILENCE_DEPRECATION
 
-#include <SFML/OpenGL.hpp>
-
-#ifdef __APPLE__
-#include <OpenGL/glu.h> // macOS
-#else
-#include <GL/glu.h> // Windows/Linux
-#endif
 
 class Ksztalt
 {
@@ -36,19 +27,20 @@ public:
     int koniec=1;
     Ksztalt()
     {
+        srand( time( NULL ) );
         color1=( std::rand() % 255 );
          color2=( std::rand() % 255 );
          color3=( std::rand() % 255 );
-        //iloelem=( std::rand() % 5 );
+        iloelem=( std::rand() % 5 );
 
         switch (iloelem)
         {
         case 0:
-        elementy.emplace_back(0,0,0);
-        elementy.emplace_back(0,0,diameter);
-        elementy.emplace_back(0,diameter,0);
-        elementy.emplace_back(0,-diameter,0);
-        break;
+            elementy.emplace_back(0,0,0);
+            elementy.emplace_back(0,0,diameter);
+            elementy.emplace_back(0,diameter,0);
+            elementy.emplace_back(0,-diameter,0);
+            break;
         case 1:
             elementy.emplace_back(0,0,0);
             elementy.emplace_back(0,0,diameter);
@@ -58,87 +50,73 @@ public:
             elementy.emplace_back(diameter,0,diameter);
             elementy.emplace_back(diameter,diameter,diameter);
             elementy.emplace_back(diameter,diameter,0);
-
-        break;
+            break;
         case 2:
             elementy.emplace_back(0,0,0);
             elementy.emplace_back(0,0,diameter);
             elementy.emplace_back(0,0,2*diameter);
             elementy.emplace_back(0,0,3*diameter);
-        break;
+            break;
         case 3:
             elementy.emplace_back(0,0,0);
             elementy.emplace_back(0,0,diameter);
             elementy.emplace_back(0,diameter,0);
             elementy.emplace_back(0,2*diameter,0);
-
-        break;
+            break;
         case 4:
             elementy.emplace_back(0,0,0);
             elementy.emplace_back(0,diameter,0);
             elementy.emplace_back(0,diameter,diameter);
             elementy.emplace_back(0,2*diameter,diameter);
-
-        break;
+            break;
         case 5:
             elementy.emplace_back(0,0,0);
             elementy.emplace_back(0,0,diameter);
             elementy.emplace_back(0,diameter,diameter);
             elementy.emplace_back(0,-diameter,diameter);
             elementy.emplace_back(0,0,2*diameter);
-        break;
-
-
-
-
+            break;
         }
-
-
-
-
     }
+
+
 
     void ahk(){}
 
-    int step(int kat)
+    int step(int kat, Ustalone & asd)
     {
         for(auto &reca : elementy)
         {
-        reca.color1=color1;
-        reca.color2=color2;
-        reca.color3=color3;
-
+            reca.color1=color1;
+            reca.color2=color2;
+            reca.color3=color3;
         }
 
         for(auto &reca : elementy)
         {
-            if(reca.step(kat)==0)
+            if(reca.step(kat,asd.elementyus)==0)
             {
 
                 koniec=0;
-
-
             }
 
         }
-        if(koniec==0){
-        for(auto &reca : elementy)
+        if(koniec==0)
         {
+            for(auto &reca : elementy)
+            {
+                reca.dziala=0;
+            }
 
-         reca.dziala=0;
-
+            for(auto &reca : elementy)
+            {
+                asd.elementyus.emplace_back(reca);
+            }
+          return 0;
         }
-        }
 
-        return 0;
+        return 1;
     }
-
-
-
-
-
-
-
 
 };
 

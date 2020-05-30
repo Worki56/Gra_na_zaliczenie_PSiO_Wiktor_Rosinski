@@ -22,66 +22,8 @@
 
 #include "ksztalt.hpp"
 #include "kwadrat.hpp"
+#include "ustalone.hpp"
 
-class Ustalone {
-public:
-   std::vector<Kwadrat> elementyus;
-int klo=0;
-Ustalone(){}
-void sprawdzanie()
-{
-    klo=0;
-    std::vector<int> pelne;
-    for(int i=0; i<1000; i=i+100)
-    {
-        for(int j1=-1000;j1<1000;j1=j1+100)
-        {
-            for(int j2=-1000;j2<1000;j2=j2+100)
-            {
-                int asd=0;
-                for(auto &reca : elementyus)
-                {
-                    if((reca.distancez1==i && reca.distancex1==j1) && reca.distancey1==j2)
-                    {
-                        asd=1;
-                        break;
-                    }
-                }
-                if(asd==0)
-                {
-                    klo=1;
-                    break;
-                }
-            }
-            if(klo==1){break;}
-        }
-        if(klo==0)
-        {
-            pelne.emplace_back(i);
-        }
-        klo=0;
-    }
-
-    for(auto &reca : pelne)
-    {
-        int asdd=0;
-        for(auto &rec : elementyus)
-        {
-
-        if(reca==rec.distancez1 )
-        {
-             elementyus.erase(elementyus.begin()+asdd);
-
-
-        }
-        asdd++;
-        }
-
-    }
-}
-
-
-};
 
 
 
@@ -143,8 +85,11 @@ int main()
 
     bool running = true;
 
-    Ksztalt pk5 ;
-
+    Ustalone pk4;
+    //Ksztalt pk5 ;
+    int asddf=0;
+std::vector<Ksztalt> pk5;
+pk5.emplace_back();
 
     int ala=0;
     std::string ust1;
@@ -159,16 +104,7 @@ int main()
             if (event.type == sf::Event::MouseWheelScrolled)
             {
                 ala=ala+event.mouseWheelScroll.delta;
-
-
-
             }
-
-
-
-
-
-
 
             if (event.type == sf::Event::Closed)
             {
@@ -187,7 +123,15 @@ int main()
         glColorMaterial (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE) ;
         glEnable (GL_COLOR_MATERIAL);
 
-       pk5.step(ala);
+       if(pk5[asddf].step(ala,pk4)==0){
+        pk5.emplace_back();
+        asddf++;
+       }
+       pk4.step(ala);
+
+
+
+
 
        //std::cout<<"zrobiłem"<<std::endl;
         glPushMatrix();
