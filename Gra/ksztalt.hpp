@@ -1,6 +1,7 @@
 #ifndef ksztalt_hpp
 #define ksztalt_hpp
 #include "kwadrat.hpp"
+#include "ustalone.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>

@@ -1,6 +1,7 @@
 #ifndef kwadrat_hpp
 #define kwadrat_hpp
 #include "ksztalt.hpp"
+#include "ustalone.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -8,11 +9,7 @@
 #include <ctime>
 #include <string>
 #include <vector>
-#include <memory>
 #include <math.h>
-#include <fstream>
-#include <sstream>
-
 #define GL_SILENCE_DEPRECATION
 
 #include <SFML/OpenGL.hpp>
@@ -23,9 +20,7 @@
 #include <GL/glu.h> // Windows/Linux
 #endif
 
-class Kwadrat
-{
-
+class Kwadrat {
 public:
 
     Kwadrat(int x,int y ,int z)
@@ -125,6 +120,7 @@ public:
        if(distancez1==0)
        {
         dziala=0;
+
         return 0;
        }
        else{return 1;}
