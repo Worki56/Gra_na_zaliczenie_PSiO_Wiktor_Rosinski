@@ -104,6 +104,7 @@ public:
                 for(auto &reca : elementy)
                 {
                     reca.pustawienie1=reca.ustawienie1+1;
+                    reca.pustawienie2=reca.ustawienie2;
                     if(reca.kolizjaprob(asd.elementyus)==0)
                     {ui8++;}
                 }
@@ -126,6 +127,7 @@ public:
                 for(auto &reca : elementy)
                 {
                     reca.pustawienie1=reca.ustawienie1-1;
+                    reca.pustawienie2=reca.ustawienie2;
                     if(reca.kolizjaprob(asd.elementyus)==0)
                     {ui8++;}
                 }
@@ -148,6 +150,7 @@ public:
                 for(auto &reca : elementy)
                 {
                     reca.pustawienie2=reca.ustawienie2+1;
+                    reca.pustawienie1=reca.ustawienie1;
                     if(reca.kolizjaprob(asd.elementyus)==0)
                     {ui8++;}
                 }
@@ -168,6 +171,7 @@ public:
                 for(auto &reca : elementy)
                 {
                     reca.pustawienie2=reca.ustawienie2-1;
+                    reca.pustawienie1=reca.ustawienie1;
                     if(reca.kolizjaprob(asd.elementyus)==0)
                     {ui8++;}
                 }
@@ -189,10 +193,10 @@ public:
                 for(auto &reca : elementy)
                 {
 
-                    if(reca.prawdziwey>-1000)
+                    if(reca.kolizjaprob(asd.elementyus,-1,0)==0)
                     {ui8++;}
                 }
-                if(ui8!=0)
+                if(ui8==0)
                 {
                     for(auto &reca : elementy)
                     {
@@ -211,10 +215,10 @@ public:
                 for(auto &reca : elementy)
                 {
 
-                    if(reca.prawdziwey<1000)
+                    if(reca.kolizjaprob(asd.elementyus,1,0)==0)
                     {ui8++;}
                 }
-                if(ui8!=0)
+                if(ui8==0)
                 {
                     for(auto &reca : elementy)
                     {
@@ -231,10 +235,10 @@ public:
                 for(auto &reca : elementy)
                 {
 
-                    if(reca.prawdziwex>-1000)
+                    if(reca.kolizjaprob(asd.elementyus,0,-1)==0)
                     {ui8++;}
                 }
-                if(ui8!=0)
+                if(ui8==0)
                 {
                     for(auto &reca : elementy)
                     {
@@ -251,10 +255,10 @@ public:
                 for(auto &reca : elementy)
                 {
 
-                    if(reca.prawdziwex<1000)
+                    if(reca.kolizjaprob(asd.elementyus,0,1)==0)
                     {ui8++;}
                 }
-                if(ui8!=0)
+                if(ui8==0)
                 {
                     for(auto &reca : elementy)
                     {

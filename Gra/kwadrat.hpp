@@ -41,26 +41,26 @@ public:
 
    void zamiana()
    {
-   if(ustawienie1%4==0)
+   if(abs(ustawienie1%4)==0)
    {
        pdx1=distancex;
        pdz1=distancez;
        pdy1=distancey;
    }
-   else if(ustawienie1%4==1)
+   else if(abs(ustawienie1%4)==1)
    {
        pdx1=distancez;
        pdz1=distancex;
        pdy1=distancey;
    }
-   else if(ustawienie1%4==2)
+   else if(abs(ustawienie1%4)==2)
    {
        pdx1=-distancex;
        pdz1=-distancez;
        pdy1=distancey;
 
    }
-   else if(ustawienie1%4==3)
+   else if(abs(ustawienie1%4)==3)
    {
        pdx1=-distancez;
        pdz1=-distancex;
@@ -68,26 +68,26 @@ public:
 
    }
 
-   if(ustawienie2%4==0)
+   if(abs(ustawienie2%4)==0)
    {
        pdy2=pdy1;
        pdz2=pdz1;
        pdx2=pdx1;
    }
-   else if(ustawienie2%4==1)
+   else if(abs(ustawienie2%4)==1)
    {
        pdy2=pdz1;
        pdz2=pdy1;
        pdx2=pdx1;
    }
-   else if(ustawienie2%4==2)
+   else if(abs(ustawienie2%4)==2)
    {
        pdy2=-pdy1;
        pdz2=-pdz1;
        pdx2=pdx1;
 
    }
-   else if(ustawienie2%4==3)
+   else if(abs(ustawienie2%4)==3)
    {
        pdy2=-pdz1;
        pdz2=-pdy1;
@@ -105,26 +105,26 @@ public:
 
    void przamiana()
    {
-   if(pustawienie1%4==0)
+   if(abs(pustawienie1%4)==0)
    {
        ppdx1=distancex;
        ppdz1=distancez;
        ppdy1=distancey;
    }
-   else if(pustawienie1%4==1)
+   else if(abs(pustawienie1%4)==1)
    {
        ppdx1=distancez;
        ppdz1=distancex;
        ppdy1=distancey;
    }
-   else if(pustawienie1%4==2)
+   else if(abs(pustawienie1%4)==2)
    {
        ppdx1=-distancex;
        ppdz1=-distancez;
        ppdy1=distancey;
 
    }
-   else if(pustawienie1%4==3)
+   else if(abs(pustawienie1%4)==3)
    {
        ppdx1=-distancez;
        ppdz1=-distancex;
@@ -132,36 +132,31 @@ public:
 
    }
 
-   if(pustawienie2%4==0)
+   if(abs(pustawienie2%4)==0)
    {
        ppdy2=ppdy1;
        ppdz2=ppdz1;
        ppdx2=ppdx1;
    }
-   else if(pustawienie2%4==1)
+   else if(abs(pustawienie2%4)==1)
    {
        ppdy2=ppdz1;
        ppdz2=ppdy1;
        ppdx2=ppdx1;
    }
-   else if(pustawienie2%4==2)
+   else if(abs(pustawienie2%4)==2)
    {
        ppdy2=-ppdy1;
        ppdz2=-ppdz1;
        ppdx2=ppdx1;
 
    }
-   else if(pustawienie2%4==3)
+   else if(abs(pustawienie2%4)==3)
    {
        ppdy2=-ppdz1;
        ppdz2=-ppdy1;
        ppdx2=ppdx1;
    }
-
-
-
-
-
 
 
 
@@ -192,13 +187,22 @@ public:
 
        for(auto &reca : asd)
        {
-           /*
-           if((reca.prawdziwez+100==probnez && reca.prawdziwex==probnex ) && reca.prawdziwey==probney)
+
+           if(probnez<0)
            {
            return 0;
           }
-           */
-           if(((reca.prawdziwez+100>probnez && reca.prawdziwez-100<probnez )&& (reca.prawdziwex+100>probnex && reca.prawdziwex-100<probnex) ) && (reca.prawdziwey+100>probney && reca.prawdziwey-100<probney))
+           if(probnex<-1000 || probnex >1000)
+           {
+           return 0;
+          }
+           if(probney<-1000 || probney >1000)
+           {
+           return 0;
+          }
+
+
+           if(((reca.prawdziwez+99>=probnez && reca.prawdziwez-99<=probnez )&& (reca.prawdziwex+99>=probnex && reca.prawdziwex-99<=probnex) ) && (reca.prawdziwey+99>=probney && reca.prawdziwey-99<=probney))
            {
            return 0;
           }
@@ -207,6 +211,41 @@ public:
        return  1;
    }
 
+   int kolizjaprob(std::vector<Kwadrat> & asd,int xd,int yd)
+   {
+       pustawienie1=ustawienie1;
+       pustawienie2=ustawienie2;
+       przamiana();
+       probnez=distancez1+ppdz2;
+       probney=distancey1+ppdy2+yd*przesuniecie1;
+       probnex=distancex1+ppdx2+xd*przesuniecie1;
+
+
+       for(auto &reca : asd)
+       {
+
+           if(probnez<0)
+           {
+           return 0;
+          }
+           if(probnex<-1000 || probnex >1000)
+           {
+           return 0;
+          }
+           if(probney<-1000 || probney >1000)
+           {
+           return 0;
+          }
+
+
+           if(((reca.prawdziwez+100>=probnez && reca.prawdziwez-100<=probnez )&& (reca.prawdziwex+100>=probnex && reca.prawdziwex-100<=probnex) ) && (reca.prawdziwey+100>=probney && reca.prawdziwey-100<=probney))
+           {
+           return 0;
+          }
+
+       }
+       return  1;
+   }
 
 
 
@@ -225,6 +264,10 @@ public:
 
        if(kolizja(asd)==0)
        {
+           prawdziwez=distancez1+pdz2;
+           prawdziwey=distancey1+pdy2;
+           prawdziwex=distancex1+pdx2;
+
            return 0;
 
        }
@@ -244,12 +287,8 @@ public:
 
        glRotated(kat*10, 0.0, 0.0, 1.0);
        glTranslated(distancex1, distancey1,distancez1);
-       glRotated(90*ustawienie1, 0.0, 1.0, 0.0);
-       glRotated(90*ustawienie2, 1.0, 0.0, 0.0);
-       //glRotated(90*ustawienie3, 0.0, 0.0, 1.0);
-       glTranslated(distancex, distancey,distancez);
 
-
+       glTranslated(pdx2, pdy2,pdz2);
 
        draw_cube(diameter,(1.0f/255)*color1,(1.0f/255)*color2,(1.0f/255)*color3);
        glPopMatrix();
@@ -260,64 +299,7 @@ public:
     {
 
         double half_cube_size = size / 2.0;
-/*
-        // bottom
 
-        glColor3d(color1, color2, color3);
-        glBegin(GL_POLYGON);
-        glVertex3d(-half_cube_size, half_cube_size, -half_cube_size);
-        glVertex3d(half_cube_size, half_cube_size, -half_cube_size);
-        glVertex3d(half_cube_size, -half_cube_size, -half_cube_size);
-        glVertex3d(-half_cube_size, -half_cube_size, -half_cube_size);
-        glEnd();
-
-
-
-        // top
-        glColor3d(color1, color2, color3);
-        glBegin(GL_POLYGON);
-        glVertex3d(-half_cube_size, half_cube_size, half_cube_size);
-        glVertex3d(half_cube_size, half_cube_size, half_cube_size);
-        glVertex3d(half_cube_size, -half_cube_size, half_cube_size);
-        glVertex3d(-half_cube_size, -half_cube_size, half_cube_size);
-        glEnd();
-
-        // left
-        glColor3d(color1, color2, color3);
-        glBegin(GL_POLYGON);
-        glVertex3d(-half_cube_size, -half_cube_size, half_cube_size);
-        glVertex3d(-half_cube_size, half_cube_size, half_cube_size);
-        glVertex3d(-half_cube_size, half_cube_size, -half_cube_size);
-        glVertex3d(-half_cube_size, -half_cube_size, -half_cube_size);
-        glEnd();
-
-        // right
-        glColor3d(color1, color2, color3);
-        glBegin(GL_POLYGON);
-        glVertex3d(half_cube_size, -half_cube_size, half_cube_size);
-        glVertex3d(half_cube_size, half_cube_size, half_cube_size);
-        glVertex3d(half_cube_size, half_cube_size, -half_cube_size);
-        glVertex3d(half_cube_size, -half_cube_size, -half_cube_size);
-        glEnd();
-
-        // front
-        glColor3d(color1, color2, color3);
-        glBegin(GL_POLYGON);
-        glVertex3d(-half_cube_size, -half_cube_size, half_cube_size);
-        glVertex3d(half_cube_size, -half_cube_size, half_cube_size);
-        glVertex3d(half_cube_size, -half_cube_size, -half_cube_size);
-        glVertex3d(-half_cube_size, -half_cube_size, -half_cube_size);
-        glEnd();
-
-        // back
-        glColor3d(color1, color2, color3);
-        glBegin(GL_POLYGON);
-        glVertex3d(-half_cube_size, half_cube_size, half_cube_size);
-        glVertex3d(half_cube_size, half_cube_size, half_cube_size);
-        glVertex3d(half_cube_size, half_cube_size, -half_cube_size);
-        glVertex3d(-half_cube_size, half_cube_size, -half_cube_size);
-        glEnd();
-*/
 
         glColor3d(color1, color2, color3);
         glBegin(GL_POLYGON);
@@ -434,7 +416,7 @@ public:
 
 
     int distancez=1000;
-    int distancez1=500;
+    int distancez1=1000;
     int distancex=0;
     int distancey=0;
     int distancex1=0;
