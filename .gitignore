@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+*.pro.user
+
 
 # Compiled Object files
 *.slo
@@ -30,5 +32,3 @@
 *.exe
 *.out
 *.app
-
-*.pro.user
