@@ -28,98 +28,184 @@ public:
         distancex=x;
         distancey=y;
         distancez=z;
+        zamiana();
 
     }
 
     int step(int kat)
     {
-       if(dziala==1)
-       {
-           distancez1=distancez1-przesuniecie;
-           if(zwal==0)
-           {
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-               {
-                   ustawienie1=ustawienie1+1;
-                   zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-               {
-                   ustawienie1=ustawienie1-1;
-                   zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-               {
-                   ustawienie2=ustawienie2+1;
-                   zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-               {
-                  ustawienie2=ustawienie2-1;
-                  zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-               {
-                  ustawienie3=ustawienie3+1;
-                  zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-               {
-                  ustawienie3=ustawienie3-1;
-                  zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-               {
-                   if(distancey1>-1000)
-                   {
-                       distancey1=distancey1-przesuniecie1;
-                   }
-                   zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-               {
-                   if(distancey1<1000)
-                   {
-                       distancey1=distancey1+przesuniecie1;
-                   }
-                   zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-               {
-                   if(distancex1>-1000)
-                   {
-                       distancex1=distancex1-przesuniecie1;
-                       zwal++;
-                   }
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
-               {
-                   if(distancex1<1000)
-                   {
-                       distancex1=distancex1+przesuniecie1;
-                       zwal++;
-                   }
-               }
-           }
-           else
-           {
-               zwal++;
-               if(zwal>10)
-               {
-                   zwal=0;
-               }
-           }
-       }
+
        draw(kat);
 
-
-       if(distancez1==0)
-       {
-           dziala=0;
-           return 0;
-       }
-       else{return 1;}
     }
+
+   void zamiana()
+   {
+   if(ustawienie1%4==0)
+   {
+       pdx1=distancex;
+       pdz1=distancez;
+       pdy1=distancey;
+   }
+   else if(ustawienie1%4==1)
+   {
+       pdx1=distancez;
+       pdz1=distancex;
+       pdy1=distancey;
+   }
+   else if(ustawienie1%4==2)
+   {
+       pdx1=-distancex;
+       pdz1=-distancez;
+       pdy1=distancey;
+
+   }
+   else if(ustawienie1%4==3)
+   {
+       pdx1=-distancez;
+       pdz1=-distancex;
+       pdy1=distancey;
+
+   }
+
+   if(ustawienie2%4==0)
+   {
+       pdy2=pdy1;
+       pdz2=pdz1;
+       pdx2=pdx1;
+   }
+   else if(ustawienie2%4==1)
+   {
+       pdy2=pdz1;
+       pdz2=pdy1;
+       pdx2=pdx1;
+   }
+   else if(ustawienie2%4==2)
+   {
+       pdy2=-pdy1;
+       pdz2=-pdz1;
+       pdx2=pdx1;
+
+   }
+   else if(ustawienie2%4==3)
+   {
+       pdy2=-pdz1;
+       pdz2=-pdy1;
+       pdx2=pdx1;
+   }
+
+
+
+
+
+
+
+
+   }
+
+   void przamiana()
+   {
+   if(pustawienie1%4==0)
+   {
+       ppdx1=distancex;
+       ppdz1=distancez;
+       ppdy1=distancey;
+   }
+   else if(pustawienie1%4==1)
+   {
+       ppdx1=distancez;
+       ppdz1=distancex;
+       ppdy1=distancey;
+   }
+   else if(pustawienie1%4==2)
+   {
+       ppdx1=-distancex;
+       ppdz1=-distancez;
+       ppdy1=distancey;
+
+   }
+   else if(pustawienie1%4==3)
+   {
+       ppdx1=-distancez;
+       ppdz1=-distancex;
+       ppdy1=distancey;
+
+   }
+
+   if(pustawienie2%4==0)
+   {
+       ppdy2=ppdy1;
+       ppdz2=ppdz1;
+       ppdx2=ppdx1;
+   }
+   else if(pustawienie2%4==1)
+   {
+       ppdy2=ppdz1;
+       ppdz2=ppdy1;
+       ppdx2=ppdx1;
+   }
+   else if(pustawienie2%4==2)
+   {
+       ppdy2=-ppdy1;
+       ppdz2=-ppdz1;
+       ppdx2=ppdx1;
+
+   }
+   else if(pustawienie2%4==3)
+   {
+       ppdy2=-ppdz1;
+       ppdz2=-ppdy1;
+       ppdx2=ppdx1;
+   }
+
+
+
+
+
+
+
+
+   }
+
+
+
+
+   int kolizja(std::vector<Kwadrat> & asd)
+   {
+       for(auto &reca : asd)
+       {
+           if((reca.prawdziwez+100==prawdziwez && reca.prawdziwex==prawdziwex ) && reca.prawdziwey==prawdziwey)
+           {
+           return 0;
+          }
+       }
+       return  1;
+   }
+
+   int kolizjaprob(std::vector<Kwadrat> & asd)
+   {
+       przamiana();
+       probnez=distancez1+ppdz2;
+       probney=distancey1+ppdy2;
+       probnex=distancex1+ppdx2;
+
+
+       for(auto &reca : asd)
+       {
+           /*
+           if((reca.prawdziwez+100==probnez && reca.prawdziwex==probnex ) && reca.prawdziwey==probney)
+           {
+           return 0;
+          }
+           */
+           if(((reca.prawdziwez+100>probnez && reca.prawdziwez-100<probnez )&& (reca.prawdziwex+100>probnex && reca.prawdziwex-100<probnex) ) && (reca.prawdziwey+100>probney && reca.prawdziwey-100<probney))
+           {
+           return 0;
+          }
+
+       }
+       return  1;
+   }
 
 
 
@@ -130,91 +216,20 @@ public:
        if(dziala==1)
        {
            distancez1=distancez1-przesuniecie;
-           if(zwal==0)
-           {
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-               {
-                   ustawienie1=ustawienie1+1;
-                   zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-               {
-                   ustawienie1=ustawienie1-1;
-                   zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-               {
-                   ustawienie2=ustawienie2+1;
-                   zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-               {
-                  ustawienie2=ustawienie2-1;
-                  zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-               {
-                  ustawienie3=ustawienie3+1;
-                  zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-               {
-                  ustawienie3=ustawienie3-1;
-                  zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
-               {
-                   if(distancey1>-1000)
-                   {
-                       distancey1=distancey1-przesuniecie1;
-                   }
-                   zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-               {
-                   if(distancey1<1000)
-                   {
-                       distancey1=distancey1+przesuniecie1;
-                   }
-                   zwal++;
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-               {
-                   if(distancex1>-1000)
-                   {
-                       distancex1=distancex1-przesuniecie1;
-                       zwal++;
-                   }
-               }
-               if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
-               {
-                   if(distancex1<1000)
-                   {
-                       distancex1=distancex1+przesuniecie1;
-                       zwal++;
-                   }
-               }
-           }
-           else
-           {
-               zwal++;
-               if(zwal>10)
-               {
-                   zwal=0;
-               }
-           }
+           prawdziwez=distancez1+pdz2;
+           prawdziwey=distancey1+pdy2;
+           prawdziwex=distancex1+pdx2;
+
        }
        draw(kat);
-       for(auto &reca : asd)
+
+       if(kolizja(asd)==0)
        {
-           if((reca.distancez1+100==distancez1 && reca.distancex1==distancex1 ) && reca.distancey1==distancey1)
-           {
            return 0;
-          }
+
        }
 
-
-       if(distancez1==0)
+       if(prawdziwez==0)
        {
            dziala=0;
            return 0;
@@ -231,7 +246,7 @@ public:
        glTranslated(distancex1, distancey1,distancez1);
        glRotated(90*ustawienie1, 0.0, 1.0, 0.0);
        glRotated(90*ustawienie2, 1.0, 0.0, 0.0);
-       glRotated(90*ustawienie3, 0.0, 0.0, 1.0);
+       //glRotated(90*ustawienie3, 0.0, 0.0, 1.0);
        glTranslated(distancex, distancey,distancez);
 
 
@@ -419,12 +434,38 @@ public:
 
 
     int distancez=1000;
-    int distancez1=1000;
+    int distancez1=500;
     int distancex=0;
     int distancey=0;
     int distancex1=0;
     int distancey1=0;
     int diameter=100;
+
+    int pdx1=0;
+    int pdy1=0;
+    int pdz1=0;
+    int pdx2=0;
+    int pdy2=0;
+    int pdz2=0;
+
+    int ppdx1=0;
+    int ppdy1=0;
+    int ppdz1=0;
+    int ppdx2=0;
+    int ppdy2=0;
+    int ppdz2=0;
+
+
+
+    int prawdziwez=0;
+int prawdziwex=0;
+int prawdziwey=0;
+
+
+int probnez=0;
+int probney=0;
+int probnex=0;
+
     double spint;
     int przesuniecie=1;
     int przesuniecie1=100;
@@ -434,8 +475,12 @@ public:
     bool dziala=1;
     int ustawienie1=0;
     int ustawienie2=0;
-    int ustawienie3=0;
-    int zwal=0;
+
+    int pustawienie1=0;
+    int pustawienie2=0;
+
+
+
 
 
 

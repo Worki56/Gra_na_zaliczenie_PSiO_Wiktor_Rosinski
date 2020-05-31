@@ -25,6 +25,8 @@ public:
     int color3;
     int iloelem=4;
     int koniec=1;
+    int zwal=0;
+
     Ksztalt()
     {
         srand( time( NULL ) );
@@ -77,6 +79,13 @@ public:
             elementy.emplace_back(0,0,2*diameter);
             break;
         }
+
+        for(auto &reca : elementy)
+        {
+            reca.color1=color1;
+            reca.color2=color2;
+            reca.color3=color3;
+        }
     }
 
 
@@ -85,12 +94,195 @@ public:
 
     int step(int kat, Ustalone & asd)
     {
-        for(auto &reca : elementy)
+
+
+        if(zwal==0)
         {
-            reca.color1=color1;
-            reca.color2=color2;
-            reca.color3=color3;
+            int ui8=0;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            {
+                for(auto &reca : elementy)
+                {
+                    reca.pustawienie1=reca.ustawienie1+1;
+                    if(reca.kolizjaprob(asd.elementyus)==0)
+                    {ui8++;}
+                }
+                if(ui8==0)
+                {
+                    for(auto &reca : elementy)
+                    {
+                        reca.ustawienie1=reca.ustawienie1+1;
+
+                        reca.zamiana();
+                    }
+                     zwal++;
+                }
+
+
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            {
+
+                for(auto &reca : elementy)
+                {
+                    reca.pustawienie1=reca.ustawienie1-1;
+                    if(reca.kolizjaprob(asd.elementyus)==0)
+                    {ui8++;}
+                }
+                if(ui8==0)
+                {
+                    for(auto &reca : elementy)
+                    {
+                        reca.ustawienie1=reca.ustawienie1-1;
+
+                        reca.zamiana();
+                    }
+                     zwal++;
+                }
+
+
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            {
+
+                for(auto &reca : elementy)
+                {
+                    reca.pustawienie2=reca.ustawienie2+1;
+                    if(reca.kolizjaprob(asd.elementyus)==0)
+                    {ui8++;}
+                }
+                if(ui8==0)
+                {
+                    for(auto &reca : elementy)
+                    {
+                        reca.ustawienie2=reca.ustawienie2+1;
+
+                        reca.zamiana();
+                    }
+                     zwal++;
+                }
+
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            {
+                for(auto &reca : elementy)
+                {
+                    reca.pustawienie2=reca.ustawienie2-1;
+                    if(reca.kolizjaprob(asd.elementyus)==0)
+                    {ui8++;}
+                }
+                if(ui8==0)
+                {
+                    for(auto &reca : elementy)
+                    {
+                        reca.ustawienie2=reca.ustawienie2-1;
+
+                        reca.zamiana();
+                    }
+                     zwal++;
+                }
+
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+            {
+                for(auto &reca : elementy)
+                {
+
+                    if(reca.prawdziwey>-1000)
+                    {ui8++;}
+                }
+                if(ui8!=0)
+                {
+                    for(auto &reca : elementy)
+                    {
+                        reca.distancey1=reca.distancey1-reca.przesuniecie1;
+
+                    }
+                     zwal++;
+                }
+
+
+
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+            {
+
+                for(auto &reca : elementy)
+                {
+
+                    if(reca.prawdziwey<1000)
+                    {ui8++;}
+                }
+                if(ui8!=0)
+                {
+                    for(auto &reca : elementy)
+                    {
+                        reca.distancey1=reca.distancey1+reca.przesuniecie1;
+                    }
+                     zwal++;
+                }
+
+
+
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            {
+                for(auto &reca : elementy)
+                {
+
+                    if(reca.prawdziwex>-1000)
+                    {ui8++;}
+                }
+                if(ui8!=0)
+                {
+                    for(auto &reca : elementy)
+                    {
+                        reca.distancex1=reca.distancex1-reca.przesuniecie1;
+                    }
+                     zwal++;
+                }
+
+
+
+            }
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+            {
+                for(auto &reca : elementy)
+                {
+
+                    if(reca.prawdziwex<1000)
+                    {ui8++;}
+                }
+                if(ui8!=0)
+                {
+                    for(auto &reca : elementy)
+                    {
+                        reca.distancex1=reca.distancex1+reca.przesuniecie1;
+                    }
+                     zwal++;
+                }
+
+            }
         }
+        else
+        {
+            zwal++;
+            if(zwal>10)
+            {
+                zwal=0;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
 
         for(auto &reca : elementy)
         {

@@ -40,7 +40,7 @@ void set_viewport(int width, int height)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glFrustum(-ar, ar, -1.0, 1.0, 2.0, 10000.0);
-    gluLookAt(1000, -1000,1000, 0, 0, 0, 0, 0, 1);
+    gluLookAt(1000, -1000,1500, 0, 0, 0, 0, 0, 1);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
