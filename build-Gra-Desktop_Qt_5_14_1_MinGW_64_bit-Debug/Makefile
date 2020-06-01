@@ -56,6 +56,7 @@ OBJECTS       = main.o
 
 DIST          =  ksztalt.hpp \
 		kwadrat.hpp \
+		plansza.hpp \
 		ustalone.hpp ..\Gra\main.cpp
 QMAKE_TARGET  = Gra
 DESTDIR        =  #avoid trailing-slash linebreak
@@ -522,7 +523,8 @@ main.o: ../Gra/main.cpp C:/SFML-2.5.1/include/SFML/Window.hpp \
 		C:/SFML-2.5.1/include/SFML/OpenGL.hpp \
 		../Gra/ksztalt.hpp \
 		../Gra/kwadrat.hpp \
-		../Gra/ustalone.hpp
+		../Gra/ustalone.hpp \
+		../Gra/plansza.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ..\Gra\main.cpp
 
 ####### Install

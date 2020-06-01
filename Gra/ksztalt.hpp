@@ -2,6 +2,7 @@
 #define ksztalt_hpp
 #include "kwadrat.hpp"
 #include "ustalone.hpp"
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -27,8 +28,13 @@ public:
     int koniec=1;
     int zwal=0;
 
-    Ksztalt()
+    Ksztalt(Plansza & asde)
     {
+        std::vector<int> asd;
+        asd.emplace_back(asde.rozmiarx);
+         asd.emplace_back(asde.rozmiary);
+         asd.emplace_back(asde.rozmiarz);
+          asd.emplace_back(asde.szybkosc);
         srand( time( NULL ) );
         color1=( std::rand() % 255 );
          color2=( std::rand() % 255 );
@@ -38,45 +44,45 @@ public:
         switch (iloelem)
         {
         case 0:
-            elementy.emplace_back(0,0,0);
-            elementy.emplace_back(0,0,diameter);
-            elementy.emplace_back(0,diameter,0);
-            elementy.emplace_back(0,-diameter,0);
+            elementy.emplace_back(asd,0,0,0);
+            elementy.emplace_back(asd,0,0,diameter);
+            elementy.emplace_back(asd,0,diameter,0);
+            elementy.emplace_back(asd,0,-diameter,0);
             break;
         case 1:
-            elementy.emplace_back(0,0,0);
-            elementy.emplace_back(0,0,diameter);
-            elementy.emplace_back(0,diameter,diameter);
-            elementy.emplace_back(0,diameter,0);
-            elementy.emplace_back(diameter,0,0);
-            elementy.emplace_back(diameter,0,diameter);
-            elementy.emplace_back(diameter,diameter,diameter);
-            elementy.emplace_back(diameter,diameter,0);
+            elementy.emplace_back(asd,0,0,0);
+            elementy.emplace_back(asd,0,0,diameter);
+            elementy.emplace_back(asd,0,diameter,diameter);
+            elementy.emplace_back(asd,0,diameter,0);
+            elementy.emplace_back(asd,diameter,0,0);
+            elementy.emplace_back(asd,diameter,0,diameter);
+            elementy.emplace_back(asd,diameter,diameter,diameter);
+            elementy.emplace_back(asd,diameter,diameter,0);
             break;
         case 2:
-            elementy.emplace_back(0,0,0);
-            elementy.emplace_back(0,0,diameter);
-            elementy.emplace_back(0,0,2*diameter);
-            elementy.emplace_back(0,0,3*diameter);
+            elementy.emplace_back(asd,0,0,0);
+            elementy.emplace_back(asd,0,0,diameter);
+            elementy.emplace_back(asd,0,0,2*diameter);
+            elementy.emplace_back(asd,0,0,3*diameter);
             break;
         case 3:
-            elementy.emplace_back(0,0,0);
-            elementy.emplace_back(0,0,diameter);
-            elementy.emplace_back(0,diameter,0);
-            elementy.emplace_back(0,2*diameter,0);
+            elementy.emplace_back(asd,0,0,0);
+            elementy.emplace_back(asd,0,0,diameter);
+            elementy.emplace_back(asd,0,diameter,0);
+            elementy.emplace_back(asd,0,2*diameter,0);
             break;
         case 4:
-            elementy.emplace_back(0,0,0);
-            elementy.emplace_back(0,diameter,0);
-            elementy.emplace_back(0,diameter,diameter);
-            elementy.emplace_back(0,2*diameter,diameter);
+            elementy.emplace_back(asd,0,0,0);
+            elementy.emplace_back(asd,0,diameter,0);
+            elementy.emplace_back(asd,0,diameter,diameter);
+            elementy.emplace_back(asd,0,2*diameter,diameter);
             break;
         case 5:
-            elementy.emplace_back(0,0,0);
-            elementy.emplace_back(0,0,diameter);
-            elementy.emplace_back(0,diameter,diameter);
-            elementy.emplace_back(0,-diameter,diameter);
-            elementy.emplace_back(0,0,2*diameter);
+            elementy.emplace_back(asd,0,0,0);
+            elementy.emplace_back(asd,0,0,diameter);
+            elementy.emplace_back(asd,0,diameter,diameter);
+            elementy.emplace_back(asd,0,-diameter,diameter);
+            elementy.emplace_back(asd,0,0,2*diameter);
             break;
         }
 

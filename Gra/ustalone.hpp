@@ -1,7 +1,9 @@
 #ifndef ustalone_hpp
 #define ustalone_hpp
-#include "ksztalt.hpp"
 #include "kwadrat.hpp"
+#include "ksztalt.hpp"
+
+#include "plansza.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -17,8 +19,19 @@ public:
 std::vector<Kwadrat> elementyus;
 friend class Ksztalt;
 
+int wymiarx=1000;
+int wymiary=1000;
+int wymiarz=1000;
+
 int klo=0;
-Ustalone(){}
+Ustalone(Plansza asd)
+{
+    wymiarx=asd.rozmiarx;
+    wymiary=asd.rozmiary;
+    wymiarz=asd.rozmiarz;
+
+
+}
 
 
 void step(int kat)
@@ -37,11 +50,11 @@ void sprawdzanie()
 {
     klo=0;
     std::vector<int> pelne;
-    for(int i=0; i<1000; i=i+100)
+    for(int i=0; i<wymiarz; i=i+100)
     {
-        for(int j1=-1000;j1<1000;j1=j1+100)
+        for(int j1=-wymiarx;j1<wymiarx;j1=j1+100)
         {
-            for(int j2=-1000;j2<1000;j2=j2+100)
+            for(int j2=-wymiary;j2<wymiary;j2=j2+100)
             {
                 int asd=0;
                 for(auto &reca : elementyus)

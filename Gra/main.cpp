@@ -9,20 +9,16 @@
 #include <math.h>
 #include <fstream>
 #include <sstream>
-
 #define GL_SILENCE_DEPRECATION
-
 #include <SFML/OpenGL.hpp>
-
 #ifdef __APPLE__
 #include <OpenGL/glu.h> // macOS
 #else
 #include <GL/glu.h> // Windows/Linux
 #endif
-
 #include "ksztalt.hpp"
-#include "kwadrat.hpp"
 #include "ustalone.hpp"
+#include "plansza.hpp"
 
 
 
@@ -41,7 +37,6 @@ void set_viewport(int width, int height)
     glLoadIdentity();
     glFrustum(-ar, ar, -1.0, 1.0, 2.0, 10000.0);
     gluLookAt(1000, -1000,3000, 0, 0, 0, 0, 0, 1);
-
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
@@ -49,17 +44,11 @@ void set_viewport(int width, int height)
 int main()
 {
 
-//int diameter=100;
-
     sf::Window window(sf::VideoMode(1024, 768), "Tetris3D", sf::Style::Default, sf::ContextSettings(32));
     window.setVerticalSyncEnabled(true);
-
     window.setActive(true);
-
     set_viewport(window.getSize().x, window.getSize().y);
-
     glClearColor(0, 0, 0, 1);
-
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_SMOOTH);
     glShadeModel(GL_SMOOTH);
@@ -80,22 +69,21 @@ int main()
 
     GLfloat global_ambient[] = {0.3, 0.3, 0.3, 0.1};
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
-
     glEnable(GL_NORMALIZE) ;
-
     bool running = true;
+    Plansza plan(1000,1000,1000,1);
 
-    Ustalone pk4;
-    //Ksztalt pk5 ;
+    Ustalone pk4(plan);
+
     int asddf=0;
-std::vector<Ksztalt> pk5;
-pk5.emplace_back();
+    std::vector<Ksztalt> pk5;
+    pk5.emplace_back(plan);
 
     int ala=0;
     std::string ust1;
     while (running)
     {
-        // handle events
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -123,20 +111,16 @@ pk5.emplace_back();
         glColorMaterial (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE) ;
         glEnable (GL_COLOR_MATERIAL);
 
+        plan.drawpomoc();
+
        if(pk5[asddf].step(ala,pk4)==0){
-        pk5.emplace_back();
-        asddf++;
+           pk5.emplace_back(plan);
+           asddf++;
        }
        pk4.step(ala);
+       glPushMatrix();
 
-
-
-
-
-       //std::cout<<"zrobiłem"<<std::endl;
-        glPushMatrix();
-
-        window.display();
+       window.display();
     }
 
     return 0;

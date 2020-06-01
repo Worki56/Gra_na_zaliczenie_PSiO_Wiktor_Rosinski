@@ -1,7 +1,6 @@
 #ifndef kwadrat_hpp
 #define kwadrat_hpp
 #include "ksztalt.hpp"
-
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -11,9 +10,7 @@
 #include <vector>
 #include <math.h>
 #define GL_SILENCE_DEPRECATION
-
 #include <SFML/OpenGL.hpp>
-
 #ifdef __APPLE__
 #include <OpenGL/glu.h> // macOS
 #else
@@ -23,8 +20,14 @@
 class Kwadrat {
 public:
 
-    Kwadrat(int x,int y ,int z)
+    Kwadrat(std::vector<int> asd,int x,int y ,int z)
     {
+        wymiarx=asd[0];
+        wymiary=asd[1];
+
+        distancez1=asd[2]+500;
+        szyb=asd[3];
+
         distancex=x;
         distancey=y;
         distancez=z;
@@ -32,137 +35,115 @@ public:
 
     }
 
-    int step(int kat)
+    void step(int kat)
     {
 
        draw(kat);
 
     }
+    void zamiana()
+    {
+        if(abs(ustawienie1%4)==0)
+        {
+            pdx1=distancex;
+            pdz1=distancez;
+            pdy1=distancey;
+        }
+        else if(abs(ustawienie1%4)==1)
+        {
+            pdx1=distancez;
+            pdz1=distancex;
+            pdy1=distancey;
+        }
+        else if(abs(ustawienie1%4)==2)
+        {
+            pdx1=-distancex;
+            pdz1=-distancez;
+            pdy1=distancey;
+        }
+        else if(abs(ustawienie1%4)==3)
+        {
+            pdx1=-distancez;
+            pdz1=-distancex;
+            pdy1=distancey;
+        }
 
-   void zamiana()
-   {
-   if(abs(ustawienie1%4)==0)
-   {
-       pdx1=distancex;
-       pdz1=distancez;
-       pdy1=distancey;
-   }
-   else if(abs(ustawienie1%4)==1)
-   {
-       pdx1=distancez;
-       pdz1=distancex;
-       pdy1=distancey;
-   }
-   else if(abs(ustawienie1%4)==2)
-   {
-       pdx1=-distancex;
-       pdz1=-distancez;
-       pdy1=distancey;
-
-   }
-   else if(abs(ustawienie1%4)==3)
-   {
-       pdx1=-distancez;
-       pdz1=-distancex;
-       pdy1=distancey;
-
-   }
-
-   if(abs(ustawienie2%4)==0)
-   {
-       pdy2=pdy1;
-       pdz2=pdz1;
-       pdx2=pdx1;
-   }
-   else if(abs(ustawienie2%4)==1)
-   {
-       pdy2=pdz1;
-       pdz2=pdy1;
-       pdx2=pdx1;
-   }
-   else if(abs(ustawienie2%4)==2)
-   {
-       pdy2=-pdy1;
-       pdz2=-pdz1;
-       pdx2=pdx1;
-
-   }
-   else if(abs(ustawienie2%4)==3)
-   {
-       pdy2=-pdz1;
-       pdz2=-pdy1;
-       pdx2=pdx1;
-   }
-
-
-
-
-
-
-
-
-   }
-
-   void przamiana()
-   {
-   if(abs(pustawienie1%4)==0)
-   {
-       ppdx1=distancex;
-       ppdz1=distancez;
-       ppdy1=distancey;
-   }
-   else if(abs(pustawienie1%4)==1)
-   {
-       ppdx1=distancez;
-       ppdz1=distancex;
-       ppdy1=distancey;
-   }
-   else if(abs(pustawienie1%4)==2)
-   {
-       ppdx1=-distancex;
-       ppdz1=-distancez;
-       ppdy1=distancey;
-
-   }
-   else if(abs(pustawienie1%4)==3)
-   {
-       ppdx1=-distancez;
-       ppdz1=-distancex;
-       ppdy1=distancey;
-
-   }
-
-   if(abs(pustawienie2%4)==0)
-   {
-       ppdy2=ppdy1;
-       ppdz2=ppdz1;
-       ppdx2=ppdx1;
-   }
-   else if(abs(pustawienie2%4)==1)
-   {
-       ppdy2=ppdz1;
-       ppdz2=ppdy1;
-       ppdx2=ppdx1;
-   }
-   else if(abs(pustawienie2%4)==2)
-   {
-       ppdy2=-ppdy1;
-       ppdz2=-ppdz1;
-       ppdx2=ppdx1;
-
-   }
-   else if(abs(pustawienie2%4)==3)
-   {
-       ppdy2=-ppdz1;
-       ppdz2=-ppdy1;
-       ppdx2=ppdx1;
-   }
-
-
-
-   }
-
-
+        if(abs(ustawienie2%4)==0)
+        {
+            pdy2=pdy1;
+            pdz2=pdz1;
+            pdx2=pdx1;
+        }
+        else if(abs(ustawienie2%4)==1)
+        {
+            pdy2=pdz1;
+            pdz2=pdy1;
+            pdx2=pdx1;
+        }
+        else if(abs(ustawienie2%4)==2)
+        {
+            pdy2=-pdy1;
+            pdz2=-pdz1;
+            pdx2=pdx1;
+        }
+        else if(abs(ustawienie2%4)==3)
+        {
+            pdy2=-pdz1;
+            pdz2=-pdy1;
+            pdx2=pdx1;
+        }
+    }
+    void przamiana()
+    {
+        if(abs(pustawienie1%4)==0)
+        {
+            ppdx1=distancex;
+            ppdz1=distancez;
+            ppdy1=distancey;
+        }
+        else if(abs(pustawienie1%4)==1)
+        {
+            ppdx1=distancez;
+            ppdz1=distancex;
+            ppdy1=distancey;
+        }
+        else if(abs(pustawienie1%4)==2)
+        {
+            ppdx1=-distancex;
+            ppdz1=-distancez;
+            ppdy1=distancey;
+        }
+        else if(abs(pustawienie1%4)==3)
+        {
+            ppdx1=-distancez;
+            ppdz1=-distancex;
+            ppdy1=distancey;
+        }
+        if(abs(pustawienie2%4)==0)
+        {
+            ppdy2=ppdy1;
+            ppdz2=ppdz1;
+            ppdx2=ppdx1;
+        }
+        else if(abs(pustawienie2%4)==1)
+        {
+            ppdy2=ppdz1;
+            ppdz2=ppdy1;
+            ppdx2=ppdx1;
+        }
+        else if(abs(pustawienie2%4)==2)
+        {
+            ppdy2=-ppdy1;
+            ppdz2=-ppdz1;
+            ppdx2=ppdx1;
+        }
+        else if(abs(pustawienie2%4)==3)
+        {
+            ppdy2=-ppdz1;
+            ppdz2=-ppdy1;
+            ppdx2=ppdx1;
+        }
+    }
 
 
    int kolizja(std::vector<Kwadrat> & asd)
@@ -187,25 +168,24 @@ public:
 
        for(auto &reca : asd)
        {
-
            if(probnez<0)
            {
-           return 0;
-          }
-           if(probnex<-1000 || probnex >1000)
+               return 0;
+           }
+           if(probnex<-wymiarx || probnex >wymiarx)
            {
-           return 0;
-          }
-           if(probney<-1000 || probney >1000)
+               return 0;
+           }
+           if(probney<-wymiary || probney >wymiary)
            {
-           return 0;
-          }
+               return 0;
+           }
 
 
            if(((reca.prawdziwez+99>=probnez && reca.prawdziwez-99<=probnez )&& (reca.prawdziwex+99>=probnex && reca.prawdziwex-99<=probnex) ) && (reca.prawdziwey+99>=probney && reca.prawdziwey-99<=probney))
            {
-           return 0;
-          }
+               return 0;
+           }
 
        }
        return  1;
@@ -226,28 +206,25 @@ public:
 
            if(probnez<0)
            {
-           return 0;
-          }
-           if(probnex<-1000 || probnex >1000)
+               return 0;
+           }
+           if(probnex<-wymiarx || probnex >wymiarx)
            {
-           return 0;
-          }
-           if(probney<-1000 || probney >1000)
+               return 0;
+           }
+           if(probney<-wymiary || probney >wymiary)
            {
-           return 0;
-          }
-
+               return 0;
+           }
 
            if(((reca.prawdziwez+100>=probnez && reca.prawdziwez-100<=probnez )&& (reca.prawdziwex+100>=probnex && reca.prawdziwex-100<=probnex) ) && (reca.prawdziwey+100>=probney && reca.prawdziwey-100<=probney))
            {
-           return 0;
-          }
+               return 0;
+           }
 
        }
        return  1;
    }
-
-
 
 
     int step(int kat, std::vector<Kwadrat> & asd)
@@ -413,7 +390,10 @@ public:
 
     }
 
-
+    int wymiarx=1000;
+    int wymiary=1000;
+    int wymiarz=1000;
+    int szyb=1;
 
     int distancez=1000;
     int distancez1=1000;
@@ -440,13 +420,13 @@ public:
 
 
     int prawdziwez=0;
-int prawdziwex=0;
-int prawdziwey=0;
+    int prawdziwex=0;
+    int prawdziwey=0;
 
 
-int probnez=0;
-int probney=0;
-int probnex=0;
+    int probnez=0;
+    int probney=0;
+    int probnex=0;
 
     double spint;
     int przesuniecie=1;
@@ -460,12 +440,6 @@ int probnex=0;
 
     int pustawienie1=0;
     int pustawienie2=0;
-
-
-
-
-
-
 
 };
 #endif
