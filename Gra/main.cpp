@@ -36,7 +36,7 @@ void set_viewport(int width, int height)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glFrustum(-ar, ar, -1.0, 1.0, 2.0, 10000.0);
-    gluLookAt(1000, -1000,3000, 0, 0, 0, 0, 0, 1);
+    gluLookAt(1400,0,2000, 0, 0, 0, 0, 0, 1);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
@@ -71,7 +71,7 @@ int main()
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
     glEnable(GL_NORMALIZE) ;
     bool running = true;
-    Plansza plan(1000,1000,1000,1);
+    Plansza plan(200,200,600,1);
 
     Ustalone pk4(plan);
 
@@ -91,7 +91,8 @@ int main()
 
             if (event.type == sf::Event::MouseWheelScrolled)
             {
-                ala=ala+event.mouseWheelScroll.delta;
+                ala=ala+event.mouseWheelScroll.delta*10;
+                std::cout<<ala<<std::endl;
             }
 
             if (event.type == sf::Event::Closed)
@@ -111,7 +112,7 @@ int main()
         glColorMaterial (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE) ;
         glEnable (GL_COLOR_MATERIAL);
 
-        plan.drawpomoc();
+        plan.drawpomoc(ala);
 
        if(pk5[asddf].step(ala,pk4)==0){
            pk5.emplace_back(plan);

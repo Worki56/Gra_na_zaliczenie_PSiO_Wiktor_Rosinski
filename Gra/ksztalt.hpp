@@ -24,7 +24,7 @@ public:
     int color1;
     int color2;
     int color3;
-    int iloelem=4;
+    int iloelem=1;
     int koniec=1;
     int zwal=0;
 
@@ -94,9 +94,6 @@ public:
         }
     }
 
-
-
-    void ahk(){}
 
     int step(int kat, Ustalone & asd)
     {

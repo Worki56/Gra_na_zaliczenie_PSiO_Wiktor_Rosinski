@@ -172,11 +172,11 @@ public:
            {
                return 0;
            }
-           if(probnex<-wymiarx || probnex >wymiarx)
+           if(probnex-99<-wymiarx || probnex+99 >wymiarx)
            {
                return 0;
            }
-           if(probney<-wymiary || probney >wymiary)
+           if(probney-99<-wymiary || probney+99 >wymiary)
            {
                return 0;
            }
@@ -208,11 +208,11 @@ public:
            {
                return 0;
            }
-           if(probnex<-wymiarx || probnex >wymiarx)
+           if(probnex-100<-wymiarx || probnex+100 >wymiarx)
            {
                return 0;
            }
-           if(probney<-wymiary || probney >wymiary)
+           if(probney-100<-wymiary || probney+100 >wymiary)
            {
                return 0;
            }
@@ -262,7 +262,7 @@ public:
 
        glPushMatrix();
 
-       glRotated(kat*10, 0.0, 0.0, 1.0);
+       glRotated(kat, 0.0, 0.0, 1.0);
        glTranslated(distancex1, distancey1,distancez1);
 
        glTranslated(pdx2, pdy2,pdz2);
