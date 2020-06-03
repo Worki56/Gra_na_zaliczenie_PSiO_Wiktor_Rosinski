@@ -17,6 +17,7 @@
 class Ustalone {
 public:
 std::vector<Kwadrat> elementyus;
+std::vector<Kwadrat> elementyus2;
 friend class Ksztalt;
 
 int wymiarx=1000;
@@ -50,16 +51,16 @@ void sprawdzanie()
 {
     klo=0;
     std::vector<int> pelne;
-    for(int i=0; i<wymiarz; i=i+100)
+    for(int i=0; i<=wymiarz; i=i+100)
     {
-        for(int j1=-wymiarx;j1<wymiarx;j1=j1+100)
+        for(int j1=-wymiarx;j1<=wymiarx;j1=j1+100)
         {
-            for(int j2=-wymiary;j2<wymiary;j2=j2+100)
+            for(int j2=-wymiary;j2<=wymiary;j2=j2+100)
             {
                 int asd=0;
                 for(auto &reca : elementyus)
                 {
-                    if((reca.distancez1==i && reca.distancex1==j1) && reca.distancey1==j2)
+                    if((reca.prawdziwez==i && reca.prawdziwex==j1) && reca.prawdziwey==j2)
                     {
                         asd=1;
                         break;
@@ -85,13 +86,15 @@ void sprawdzanie()
         int asdd=0;
         for(auto &rec : elementyus)
         {
-            if(reca==rec.distancez1 )
+            if(reca>rec.prawdziwez )
             {
                 elementyus.erase(elementyus.begin()+asdd);
+                elementyus2.emplace_back(rec);
             }
-            else if(reca<rec.distancez1)
+            else if(reca<rec.prawdziwez)
             {
-                rec.distancez1=rec.distancez1-100;
+                rec.prawdziwez=rec.prawdziwez-100;
+                elementyus2.emplace_back(rec);
             }
             asdd++;
         }
@@ -99,7 +102,13 @@ void sprawdzanie()
         {
             reca=reca-100;
         }
-        
+        elementyus.clear();
+        for(auto &reca : elementyus2)
+        {
+            elementyus.emplace_back(reca);
+        }
+        elementyus2.clear();
+
     }
 }
 

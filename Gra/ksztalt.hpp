@@ -24,7 +24,7 @@ public:
     int color1;
     int color2;
     int color3;
-    int iloelem=1;
+    int iloelem=2;
     int koniec=1;
     int zwal=0;
 
@@ -39,7 +39,7 @@ public:
         color1=( std::rand() % 255 );
          color2=( std::rand() % 255 );
          color3=( std::rand() % 255 );
-        iloelem=( std::rand() % 5 );
+        //iloelem=( std::rand() % 5 );
 
         switch (iloelem)
         {
@@ -92,6 +92,7 @@ public:
             reca.color2=color2;
             reca.color3=color3;
         }
+
     }
 
 
@@ -203,7 +204,7 @@ public:
                 {
                     for(auto &reca : elementy)
                     {
-                        reca.distancey1=reca.distancey1-reca.przesuniecie1;
+                        reca.distancex1=reca.distancex1-reca.przesuniecie1;
 
                     }
                      zwal++;
@@ -225,7 +226,7 @@ public:
                 {
                     for(auto &reca : elementy)
                     {
-                        reca.distancey1=reca.distancey1+reca.przesuniecie1;
+                        reca.distancex1=reca.distancex1+reca.przesuniecie1;
                     }
                      zwal++;
                 }
@@ -245,7 +246,7 @@ public:
                 {
                     for(auto &reca : elementy)
                     {
-                        reca.distancex1=reca.distancex1-reca.przesuniecie1;
+                        reca.distancey1=reca.distancey1-reca.przesuniecie1;
                     }
                      zwal++;
                 }
@@ -265,7 +266,7 @@ public:
                 {
                     for(auto &reca : elementy)
                     {
-                        reca.distancex1=reca.distancex1+reca.przesuniecie1;
+                        reca.distancey1=reca.distancey1+reca.przesuniecie1;
                     }
                      zwal++;
                 }
@@ -280,14 +281,6 @@ public:
                 zwal=0;
             }
         }
-
-
-
-
-
-
-
-
 
 
 

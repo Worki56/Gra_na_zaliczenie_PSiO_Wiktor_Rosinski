@@ -71,19 +71,23 @@ int main()
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
     glEnable(GL_NORMALIZE) ;
     bool running = true;
+    //Plansza plan(200,200,600,1);
     Plansza plan(200,200,600,1);
-
     Ustalone pk4(plan);
 
     int asddf=0;
     std::vector<Ksztalt> pk5;
-    pk5.emplace_back(plan);
+
 
     int ala=0;
     std::string ust1;
+    pk5.emplace_back(plan);
+
     while (running)
     {
 
+
+        //glPushMatrix();
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -92,7 +96,7 @@ int main()
             if (event.type == sf::Event::MouseWheelScrolled)
             {
                 ala=ala+event.mouseWheelScroll.delta*10;
-                std::cout<<ala<<std::endl;
+
             }
 
             if (event.type == sf::Event::Closed)
@@ -117,9 +121,10 @@ int main()
        if(pk5[asddf].step(ala,pk4)==0){
            pk5.emplace_back(plan);
            asddf++;
+           pk4.sprawdzanie();
        }
        pk4.step(ala);
-       glPushMatrix();
+
 
        window.display();
     }

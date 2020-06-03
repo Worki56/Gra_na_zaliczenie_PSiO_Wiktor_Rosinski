@@ -166,26 +166,34 @@ public:
        probnex=distancex1+ppdx2;
 
 
-       for(auto &reca : asd)
+
+ if(probnez<0)
+ {
+     return 0;
+ }
+ if(probnex<-wymiarx || probnex >wymiarx)
+ {
+
+     return 0;
+ }
+ if(probney<-wymiary || probney >wymiary)
+ {
+     return 0;
+ }
+
+
+
+
+ for(auto &reca : asd)
        {
-           if(probnez<0)
-           {
-               return 0;
-           }
-           if(probnex-99<-wymiarx || probnex+99 >wymiarx)
-           {
-               return 0;
-           }
-           if(probney-99<-wymiary || probney+99 >wymiary)
-           {
-               return 0;
-           }
 
 
-           if(((reca.prawdziwez+99>=probnez && reca.prawdziwez-99<=probnez )&& (reca.prawdziwex+99>=probnex && reca.prawdziwex-99<=probnex) ) && (reca.prawdziwey+99>=probney && reca.prawdziwey-99<=probney))
-           {
-               return 0;
-           }
+
+     if((reca.prawdziwez+100>=probnez && reca.prawdziwez-100<=probnez )&& (reca.prawdziwex==probnex && reca.prawdziwey==probney))
+     {
+         return 0;
+     }
+
 
        }
        return  1;
@@ -201,23 +209,32 @@ public:
        probnex=distancex1+ppdx2+xd*przesuniecie1;
 
 
+
+       if(probnez<0)
+       {
+           return 0;
+       }
+       if(probnex<-wymiarx || probnex >wymiarx)
+       {
+
+           return 0;
+
+       }
+       if(probney<-wymiary || probney >wymiary)
+       {
+
+           return 0;
+       }
+
+
+
        for(auto &reca : asd)
        {
 
-           if(probnez<0)
-           {
-               return 0;
-           }
-           if(probnex-100<-wymiarx || probnex+100 >wymiarx)
-           {
-               return 0;
-           }
-           if(probney-100<-wymiary || probney+100 >wymiary)
-           {
-               return 0;
-           }
 
-           if(((reca.prawdziwez+100>=probnez && reca.prawdziwez-100<=probnez )&& (reca.prawdziwex+100>=probnex && reca.prawdziwex-100<=probnex) ) && (reca.prawdziwey+100>=probney && reca.prawdziwey-100<=probney))
+
+
+           if((reca.prawdziwez+100>=probnez && reca.prawdziwez-100<=probnez )&& (reca.prawdziwex==probnex && reca.prawdziwey==probney))
            {
                return 0;
            }
@@ -232,12 +249,13 @@ public:
        if(dziala==1)
        {
            distancez1=distancez1-przesuniecie;
+
            prawdziwez=distancez1+pdz2;
            prawdziwey=distancey1+pdy2;
            prawdziwex=distancex1+pdx2;
 
+
        }
-       draw(kat);
 
        if(kolizja(asd)==0)
        {
@@ -248,6 +266,7 @@ public:
            return 0;
 
        }
+       draw(kat);
 
        if(prawdziwez==0)
        {
@@ -263,9 +282,7 @@ public:
        glPushMatrix();
 
        glRotated(kat, 0.0, 0.0, 1.0);
-       glTranslated(distancex1, distancey1,distancez1);
-
-       glTranslated(pdx2, pdy2,pdz2);
+       glTranslated(prawdziwex, prawdziwey,prawdziwez);
 
        draw_cube(diameter,(1.0f/255)*color1,(1.0f/255)*color2,(1.0f/255)*color3);
        glPopMatrix();
@@ -385,9 +402,6 @@ public:
         glEnd();
 
 
-
-
-
     }
 
     int wymiarx=1000;
@@ -417,12 +431,9 @@ public:
     int ppdy2=0;
     int ppdz2=0;
 
-
-
     int prawdziwez=0;
     int prawdziwex=0;
     int prawdziwey=0;
-
 
     int probnez=0;
     int probney=0;
