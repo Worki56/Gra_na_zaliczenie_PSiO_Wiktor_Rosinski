@@ -1,6 +1,7 @@
 #ifndef kwadrat_hpp
 #define kwadrat_hpp
 #include "ksztalt.hpp"
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -8,7 +9,10 @@
 #include <ctime>
 #include <string>
 #include <vector>
+#include <memory>
 #include <math.h>
+#include <fstream>
+#include <sstream>
 #define GL_SILENCE_DEPRECATION
 #include <SFML/OpenGL.hpp>
 #ifdef __APPLE__
@@ -24,23 +28,20 @@ public:
     {
         wymiarx=asd[0];
         wymiary=asd[1];
-
         distancez1=asd[2]+500;
         szyb=asd[3];
-
         distancex=x;
         distancey=y;
         distancez=z;
         zamiana();
-
     }
 
     void step(int kat)
     {
-
        draw(kat);
 
     }
+
     void zamiana()
     {
         if(abs(ustawienie1%4)==0)
@@ -93,6 +94,7 @@ public:
             pdx2=pdx1;
         }
     }
+
     void przamiana()
     {
         if(abs(pustawienie1%4)==0)
@@ -152,8 +154,8 @@ public:
        {
            if((reca.prawdziwez+100==prawdziwez && reca.prawdziwex==prawdziwex ) && reca.prawdziwey==prawdziwey)
            {
-           return 0;
-          }
+               return 0;
+           }
        }
        return  1;
    }
@@ -165,38 +167,27 @@ public:
        probney=distancey1+ppdy2;
        probnex=distancex1+ppdx2;
 
-
-
- if(probnez<0)
- {
-     return 0;
- }
- if(probnex<-wymiarx || probnex >wymiarx)
- {
-
-     return 0;
- }
- if(probney<-wymiary || probney >wymiary)
- {
-     return 0;
- }
-
-
-
-
- for(auto &reca : asd)
+       if(probnez<0)
        {
-
-
-
-     if((reca.prawdziwez+100>=probnez && reca.prawdziwez-100<=probnez )&& (reca.prawdziwex==probnex && reca.prawdziwey==probney))
-     {
-         return 0;
-     }
-
-
+           return 0;
        }
-       return  1;
+       if(probnex<-wymiarx || probnex >wymiarx)
+       {
+           return 0;
+       }
+       if(probney<-wymiary || probney >wymiary)
+       {
+           return 0;
+       }
+
+       for(auto &reca : asd)
+       {
+           if((reca.prawdziwez+100>=probnez && reca.prawdziwez-100<=probnez )&& (reca.prawdziwex==probnex && reca.prawdziwey==probney))
+           {
+               return 0;
+           }
+       }
+       return 1;
    }
 
    int kolizjaprob(std::vector<Kwadrat> & asd,int xd,int yd)
@@ -208,37 +199,25 @@ public:
        probney=distancey1+ppdy2+yd*przesuniecie1;
        probnex=distancex1+ppdx2+xd*przesuniecie1;
 
-
-
        if(probnez<0)
        {
            return 0;
        }
        if(probnex<-wymiarx || probnex >wymiarx)
        {
-
            return 0;
-
        }
        if(probney<-wymiary || probney >wymiary)
        {
-
            return 0;
        }
 
-
-
        for(auto &reca : asd)
        {
-
-
-
-
            if((reca.prawdziwez+100>=probnez && reca.prawdziwez-100<=probnez )&& (reca.prawdziwex==probnex && reca.prawdziwey==probney))
            {
                return 0;
            }
-
        }
        return  1;
    }
@@ -249,12 +228,9 @@ public:
        if(dziala==1)
        {
            distancez1=distancez1-przesuniecie;
-
            prawdziwez=distancez1+pdz2;
            prawdziwey=distancey1+pdy2;
            prawdziwex=distancex1+pdx2;
-
-
        }
 
        if(kolizja(asd)==0)
@@ -262,9 +238,7 @@ public:
            prawdziwez=distancez1+pdz2;
            prawdziwey=distancey1+pdy2;
            prawdziwex=distancex1+pdx2;
-
            return 0;
-
        }
        draw(kat);
 
@@ -278,17 +252,13 @@ public:
 
     void draw(int kat)
     {
-
        glPushMatrix();
-
        glRotated(kat, 0.0, 0.0, 1.0);
        glTranslated(prawdziwex, prawdziwey,prawdziwez);
-
        draw_cube(diameter,(1.0f/255)*color1,(1.0f/255)*color2,(1.0f/255)*color3);
        glPopMatrix();
-
-
     }
+
     void draw_cube(double size, double color1, double color2, double color3)
     {
 
@@ -346,8 +316,6 @@ public:
         glVertex3d(-half_cube_size+1, -half_cube_size, -half_cube_size);
         glEnd();
 
-
-
         // right
 
         glColor3d(color1, color2, color3);
@@ -383,7 +351,6 @@ public:
         glVertex3d(-half_cube_size, -half_cube_size+1, -half_cube_size);
         glEnd();
 
-
         // back
         glColor3d(color1, color2, color3);
         glBegin(GL_POLYGON);
@@ -400,8 +367,6 @@ public:
         glVertex3d(half_cube_size, half_cube_size-1, -half_cube_size);
         glVertex3d(-half_cube_size, half_cube_size-1, -half_cube_size);
         glEnd();
-
-
     }
 
     int wymiarx=1000;
@@ -439,7 +404,6 @@ public:
     int probney=0;
     int probnex=0;
 
-    double spint;
     int przesuniecie=1;
     int przesuniecie1=100;
     int color1;

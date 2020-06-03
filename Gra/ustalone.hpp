@@ -2,7 +2,6 @@
 #define ustalone_hpp
 #include "kwadrat.hpp"
 #include "ksztalt.hpp"
-
 #include "plansza.hpp"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>

@@ -27,7 +27,7 @@
 
 
 
-void set_viewport(int width, int height)
+void set_viewport(int width, int height,int wys, int dlu)
 {
     const float ar = (float)width / (float)height;
 
@@ -35,19 +35,22 @@ void set_viewport(int width, int height)
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glFrustum(-ar, ar, -1.0, 1.0, 2.0, 10000.0);
-    gluLookAt(1400,0,2000, 0, 0, 0, 0, 0, 1);
+    glFrustum(-ar, ar, -1.0, 1.0, 2.0, dlu*20);
+    gluLookAt(dlu*4,0,wys*2.75, 0, 0, 0, 0, 0, 1);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 }
 
 int main()
 {
+int dlu=500;
+int wys=600;
+int szyb=1;
 
     sf::Window window(sf::VideoMode(1024, 768), "Tetris3D", sf::Style::Default, sf::ContextSettings(32));
     window.setVerticalSyncEnabled(true);
     window.setActive(true);
-    set_viewport(window.getSize().x, window.getSize().y);
+    set_viewport(window.getSize().x, window.getSize().y,wys,dlu);
     glClearColor(0, 0, 0, 1);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_SMOOTH);
@@ -71,8 +74,8 @@ int main()
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
     glEnable(GL_NORMALIZE) ;
     bool running = true;
-    //Plansza plan(200,200,600,1);
-    Plansza plan(200,200,600,1);
+
+    Plansza plan(dlu,dlu,wys,szyb);
     Ustalone pk4(plan);
 
     int asddf=0;
@@ -87,7 +90,7 @@ int main()
     {
 
 
-        //glPushMatrix();
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -107,7 +110,7 @@ int main()
             else if (event.type == sf::Event::Resized)
             {
 
-                set_viewport(event.size.width, event.size.height);
+                set_viewport(event.size.width, event.size.height,wys,dlu);
             }
         }
 
@@ -124,7 +127,10 @@ int main()
            pk4.sprawdzanie();
        }
        pk4.step(ala);
-
+       if(plan.punkty>1000)
+       {
+           plan.szybkosc=2;
+       }
 
        window.display();
     }

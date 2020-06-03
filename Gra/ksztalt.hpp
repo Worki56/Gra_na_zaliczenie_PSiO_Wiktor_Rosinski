@@ -2,6 +2,8 @@
 #define ksztalt_hpp
 #include "kwadrat.hpp"
 #include "ustalone.hpp"
+#include <cstdlib>
+#include <ctime>
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -10,11 +12,17 @@
 #include <ctime>
 #include <string>
 #include <vector>
+#include <memory>
 #include <math.h>
-#include <cstdlib>
-#include <ctime>
-
-
+#include <fstream>
+#include <sstream>
+#define GL_SILENCE_DEPRECATION
+#include <SFML/OpenGL.hpp>
+#ifdef __APPLE__
+#include <OpenGL/glu.h> // macOS
+#else
+#include <GL/glu.h> // Windows/Linux
+#endif
 
 class Ksztalt
 {
@@ -32,14 +40,14 @@ public:
     {
         std::vector<int> asd;
         asd.emplace_back(asde.rozmiarx);
-         asd.emplace_back(asde.rozmiary);
-         asd.emplace_back(asde.rozmiarz);
-          asd.emplace_back(asde.szybkosc);
+        asd.emplace_back(asde.rozmiary);
+        asd.emplace_back(asde.rozmiarz);
+        asd.emplace_back(asde.szybkosc);
         srand( time( NULL ) );
         color1=( std::rand() % 255 );
-         color2=( std::rand() % 255 );
-         color3=( std::rand() % 255 );
-        //iloelem=( std::rand() % 5 );
+        color2=( std::rand() % 255 );
+        color3=( std::rand() % 255 );
+        iloelem=( std::rand() % 5 );
 
         switch (iloelem)
         {
@@ -92,17 +100,15 @@ public:
             reca.color2=color2;
             reca.color3=color3;
         }
-
     }
 
 
     int step(int kat, Ustalone & asd)
     {
-
-
         if(zwal==0)
         {
             int ui8=0;
+
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
             {
                 for(auto &reca : elementy)
@@ -117,14 +123,12 @@ public:
                     for(auto &reca : elementy)
                     {
                         reca.ustawienie1=reca.ustawienie1+1;
-
                         reca.zamiana();
                     }
-                     zwal++;
+                    zwal++;
                 }
-
-
             }
+
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
             {
 
@@ -140,14 +144,12 @@ public:
                     for(auto &reca : elementy)
                     {
                         reca.ustawienie1=reca.ustawienie1-1;
-
                         reca.zamiana();
                     }
-                     zwal++;
+                    zwal++;
                 }
-
-
             }
+
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
             {
 
@@ -163,13 +165,12 @@ public:
                     for(auto &reca : elementy)
                     {
                         reca.ustawienie2=reca.ustawienie2+1;
-
                         reca.zamiana();
                     }
-                     zwal++;
+                    zwal++;
                 }
-
             }
+
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             {
                 for(auto &reca : elementy)
@@ -184,10 +185,9 @@ public:
                     for(auto &reca : elementy)
                     {
                         reca.ustawienie2=reca.ustawienie2-1;
-
                         reca.zamiana();
                     }
-                     zwal++;
+                    zwal++;
                 }
 
             }
@@ -205,20 +205,15 @@ public:
                     for(auto &reca : elementy)
                     {
                         reca.distancex1=reca.distancex1-reca.przesuniecie1;
-
                     }
-                     zwal++;
+                    zwal++;
                 }
-
-
-
             }
+
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
             {
-
                 for(auto &reca : elementy)
                 {
-
                     if(reca.kolizjaprob(asd.elementyus,1,0)==0)
                     {ui8++;}
                 }
@@ -228,12 +223,10 @@ public:
                     {
                         reca.distancex1=reca.distancex1+reca.przesuniecie1;
                     }
-                     zwal++;
+                    zwal++;
                 }
-
-
-
             }
+
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
             {
                 for(auto &reca : elementy)
@@ -248,17 +241,14 @@ public:
                     {
                         reca.distancey1=reca.distancey1-reca.przesuniecie1;
                     }
-                     zwal++;
+                    zwal++;
                 }
-
-
-
             }
+
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
             {
                 for(auto &reca : elementy)
                 {
-
                     if(reca.kolizjaprob(asd.elementyus,0,1)==0)
                     {ui8++;}
                 }
@@ -268,9 +258,8 @@ public:
                     {
                         reca.distancey1=reca.distancey1+reca.przesuniecie1;
                     }
-                     zwal++;
+                    zwal++;
                 }
-
             }
         }
         else
@@ -288,7 +277,6 @@ public:
         {
             if(reca.step(kat,asd.elementyus)==0)
             {
-
                 koniec=0;
             }
 
@@ -306,7 +294,6 @@ public:
             }
           return 0;
         }
-
         return 1;
     }
 
