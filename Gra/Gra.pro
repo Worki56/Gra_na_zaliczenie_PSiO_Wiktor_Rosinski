@@ -5,7 +5,12 @@ CONFIG -= app_bundle
 CONFIG -= qt
 INCLUDEPATH += "C:/SFML-2.5.1/include"
 SOURCES += \
-        main.cpp
+        fun.cpp \
+        ksztalt.cpp \
+        kwadrat.cpp \
+        main.cpp \
+        plansza.cpp \
+        ustalone.cpp
 
 
 LIBS += -L"C:/SFML-2.5.1/lib"
@@ -19,6 +24,7 @@ CONFIG(debug, debug|release){
 
 
 HEADERS += \
+    fun.hpp \
     ksztalt.hpp \
     kwadrat.hpp \
     plansza.hpp \
