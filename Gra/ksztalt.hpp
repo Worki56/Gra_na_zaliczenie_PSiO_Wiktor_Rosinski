@@ -43,7 +43,7 @@ public:
         asd.emplace_back(asde.rozmiary);
         asd.emplace_back(asde.rozmiarz);
         asd.emplace_back(asde.szybkosc);
-        srand( time( NULL ) );
+        //srand( time( NULL ) );
         color1=( std::rand() % 255 );
         color2=( std::rand() % 255 );
         color3=( std::rand() % 255 );
@@ -108,6 +108,26 @@ public:
         if(zwal==0)
         {
             int ui8=0;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            {
+                for(auto &reca : elementy)
+                {
+
+                    if(reca.kolizja1(asd.elementyus)==0)
+                    {ui8++;}
+                }
+                std::cout<<ui8<<std::endl;
+
+                if(ui8==0)
+                {
+                    for(auto &reca : elementy)
+                    {
+
+                        reca.kolizja11();
+                    }
+                    zwal++;
+                }
+            }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
             {
@@ -273,11 +293,19 @@ public:
 
 
 
-        for(auto &reca : elementy)
+        for(auto &reca : elementy)           
         {
-            if(reca.step(kat,asd.elementyus)==0)
+            int alas=reca.step(kat,asd.elementyus);
+            if(alas!=1)
             {
-                koniec=0;
+                for(auto &reca : elementy)
+                {
+                    reca.as(alas);
+
+                }
+                 koniec=0;
+                break;
+
             }
 
         }

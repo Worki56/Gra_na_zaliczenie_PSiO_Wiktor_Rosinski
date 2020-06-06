@@ -187,7 +187,7 @@ public:
     int rozmiarx=1000;
     int rozmiary=1000;
     int szybkosc=1;
-    int punkty=0;
+
 	
 };
 #endif

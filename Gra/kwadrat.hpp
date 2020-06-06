@@ -29,7 +29,8 @@ public:
         wymiarx=asd[0];
         wymiary=asd[1];
         distancez1=asd[2]+500;
-        szyb=asd[3];
+
+        przesuniecie=przesuniecie*asd[3];
         distancex=x;
         distancey=y;
         distancez=z;
@@ -152,13 +153,42 @@ public:
    {
        for(auto &reca : asd)
        {
-           if((reca.prawdziwez+100==prawdziwez && reca.prawdziwex==prawdziwex ) && reca.prawdziwey==prawdziwey)
+           if((reca.prawdziwez+100>=prawdziwez && reca.prawdziwex==prawdziwex ) && reca.prawdziwey==prawdziwey)
+           {
+               prawdziwez=reca.prawdziwez+100;
+               prawdziwey=distancey1+pdy2;
+               prawdziwex=distancex1+pdx2;
+               return 0;
+           }
+       }
+       return  1;
+   }
+
+   int kolizja1(std::vector<Kwadrat> & asd)
+   {
+       for(auto &reca : asd)
+       {
+           distancez1p=distancez1-100;
+           prawdziwez=distancez1p+pdz2;
+           prawdziwey=distancey1+pdy2;
+           prawdziwex=distancex1+pdx2;
+           if((reca.prawdziwez+100>=prawdziwez && reca.prawdziwex==prawdziwex ) && reca.prawdziwey==prawdziwey)
+           {
+               return 0;
+           }
+           if(prawdziwez<0)
            {
                return 0;
            }
        }
        return  1;
    }
+
+   void kolizja11()
+   {
+       distancez1=distancez1-100;
+   }
+
 
    int kolizjaprob(std::vector<Kwadrat> & asd)
    {
@@ -235,19 +265,22 @@ public:
 
        if(kolizja(asd)==0)
        {
-           prawdziwez=distancez1+pdz2;
-           prawdziwey=distancey1+pdy2;
-           prawdziwex=distancex1+pdx2;
-           return 0;
+           return prawdziwez;
        }
        draw(kat);
 
-       if(prawdziwez==0)
+       if(prawdziwez<=0)
        {
+           prawdziwez=0;
            dziala=0;
-           return 0;
+           return prawdziwez;
        }
        else{return 1;}
+    }
+
+    void as(int a)
+    {
+        prawdziwez=a+pdz2;
     }
 
     void draw(int kat)
@@ -372,14 +405,14 @@ public:
     int wymiarx=1000;
     int wymiary=1000;
     int wymiarz=1000;
-    int szyb=1;
 
     int distancez=1000;
     int distancez1=1000;
-    int distancex=0;
-    int distancey=0;
     int distancex1=0;
     int distancey1=0;
+    int distancez1p=1000;
+    int distancex=0;
+    int distancey=0;
     int diameter=100;
 
     int pdx1=0;
@@ -409,7 +442,9 @@ public:
     int color1;
     int color2;
     int color3;
+
     bool dziala=1;
+
     int ustawienie1=0;
     int ustawienie2=0;
 

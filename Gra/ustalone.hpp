@@ -6,6 +6,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+
 #include <cstdlib>
 #include <ctime>
 #include <string>
@@ -22,6 +23,8 @@ friend class Ksztalt;
 int wymiarx=1000;
 int wymiary=1000;
 int wymiarz=1000;
+int zlicz=0;
+double punkty=0;
 
 int klo=0;
 Ustalone(Plansza asd)
@@ -48,6 +51,7 @@ void step(int kat)
 
 void sprawdzanie()
 {
+    zlicz=0;
     klo=0;
     std::vector<int> pelne;
     for(int i=0; i<=wymiarz; i=i+100)
@@ -59,7 +63,7 @@ void sprawdzanie()
                 int asd=0;
                 for(auto &reca : elementyus)
                 {
-                    if((reca.prawdziwez==i && reca.prawdziwex==j1) && reca.prawdziwey==j2)
+                    if((reca.prawdziwez==i  && reca.prawdziwex==j1) && reca.prawdziwey==j2)
                     {
                         asd=1;
                         break;
@@ -76,6 +80,7 @@ void sprawdzanie()
         if(klo==0)
         {
             pelne.emplace_back(i);
+            zlicz++;
         }
         klo=0;
     }
@@ -108,6 +113,12 @@ void sprawdzanie()
         }
         elementyus2.clear();
 
+    }
+    double punkty1;
+    punkty1=punkty+(zlicz*zlicz*((3*3)/((wymiarx/100)*(wymiary/100))));
+    if(punkty1!=punkty){
+    system("cls");
+    std::cout<<"Posiadane punkty:"<<punkty<<std::endl;
     }
 }
 

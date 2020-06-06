@@ -43,9 +43,15 @@ void set_viewport(int width, int height,int wys, int dlu)
 
 int main()
 {
-int dlu=500;
-int wys=600;
-int szyb=1;
+    int dlu=200;
+    int wys=600;
+    int szyb1=3;
+    int szyb=3;
+     srand( time( NULL ) );
+
+
+
+
 
     sf::Window window(sf::VideoMode(1024, 768), "Tetris3D", sf::Style::Default, sf::ContextSettings(32));
     window.setVerticalSyncEnabled(true);
@@ -88,6 +94,33 @@ int szyb=1;
 
     while (running)
     {
+        system("cls");
+        if(szyb1==3){
+            szyb=3;
+        }
+        else if(szyb1==2){
+           if(pk4.punkty>100)
+            {
+              szyb=3;
+            }
+           else{szyb=2;}
+        }
+        else if(szyb1==1)
+        {
+            if(pk4.punkty>1000)
+             {
+               szyb=3;
+             }
+            else if(pk4.punkty>100)
+            {
+                szyb=2;
+
+            }
+            else{szyb=1;}
+
+        }
+        plan.szybkosc=szyb;
+
 
 
 
@@ -122,17 +155,21 @@ int szyb=1;
         plan.drawpomoc(ala);
 
        if(pk5[asddf].step(ala,pk4)==0){
+           pk5.clear();
            pk5.emplace_back(plan);
-           asddf++;
+
            pk4.sprawdzanie();
        }
        pk4.step(ala);
-       if(plan.punkty>1000)
-       {
-           plan.szybkosc=2;
-       }
+
+
+
+
+
 
        window.display();
+
+
     }
 
     return 0;
