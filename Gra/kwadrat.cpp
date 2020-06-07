@@ -16,6 +16,13 @@ Kwadrat::Kwadrat(std::vector<int> asd,int x,int y ,int z)
     zamiana();
 }
 
+void Kwadrat::pre(int kat)
+{
+    przesuniecie=1*kat;
+
+}
+
+
 void Kwadrat::step(int kat)
 {
    draw(kat);
@@ -57,21 +64,21 @@ void Kwadrat::zamiana()
     }
     else if(abs(ustawienie2%4)==1)
     {
-        pdy2=pdz1;
-        pdz2=pdy1;
-        pdx2=pdx1;
+        pdy2=pdx1;
+        pdz2=pdz1;
+        pdx2=pdy1;
     }
     else if(abs(ustawienie2%4)==2)
     {
         pdy2=-pdy1;
-        pdz2=-pdz1;
-        pdx2=pdx1;
+        pdz2=pdz1;
+        pdx2=-pdx1;
     }
     else if(abs(ustawienie2%4)==3)
     {
-        pdy2=-pdz1;
-        pdz2=-pdy1;
-        pdx2=pdx1;
+        pdy2=-pdx1;
+        pdz2=pdz1;
+        pdx2=-pdy1;
     }
 }
 
@@ -101,6 +108,7 @@ void Kwadrat::przamiana()
         ppdz1=-distancex;
         ppdy1=distancey;
     }
+
     if(abs(pustawienie2%4)==0)
     {
         ppdy2=ppdy1;
@@ -109,21 +117,21 @@ void Kwadrat::przamiana()
     }
     else if(abs(pustawienie2%4)==1)
     {
-        ppdy2=ppdz1;
-        ppdz2=ppdy1;
-        ppdx2=ppdx1;
+        ppdy2=ppdx1;
+        ppdz2=ppdz1;
+        ppdx2=ppdy1;
     }
     else if(abs(pustawienie2%4)==2)
     {
         ppdy2=-ppdy1;
-        ppdz2=-ppdz1;
-        ppdx2=ppdx1;
+        ppdz2=ppdz1;
+        ppdx2=-ppdx1;
     }
     else if(abs(pustawienie2%4)==3)
     {
-        ppdy2=-ppdz1;
-        ppdz2=-ppdy1;
-        ppdx2=ppdx1;
+        ppdy2=-ppdx1;
+        ppdz2=ppdz1;
+        ppdx2=-ppdy1;
     }
 }
 
@@ -134,9 +142,10 @@ int Kwadrat::kolizja(std::vector<Kwadrat> & asd)
    {
        if((reca.prawdziwez+100>=prawdziwez && reca.prawdziwex==prawdziwex ) && reca.prawdziwey==prawdziwey)
        {
-           prawdziwez=reca.prawdziwez+100;
+           distancez1=reca.prawdziwez+100-pdz2;
            prawdziwey=distancey1+pdy2;
            prawdziwex=distancex1+pdx2;
+
            return 0;
        }
    }
@@ -244,7 +253,7 @@ int Kwadrat::step(int kat, std::vector<Kwadrat> & asd)
 
    if(kolizja(asd)==0)
    {
-       return prawdziwez;
+       return distancez1;
    }
    draw(kat);
 
@@ -252,7 +261,7 @@ int Kwadrat::step(int kat, std::vector<Kwadrat> & asd)
    {
        prawdziwez=0;
        dziala=0;
-       return prawdziwez;
+       return distancez1;
    }
    else{return 1;}
 }

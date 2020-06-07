@@ -24,6 +24,8 @@
 class Kwadrat {
 public:
 
+
+
     int wymiarx=1000;
     int wymiary=1000;
     int wymiarz=1000;
@@ -73,6 +75,7 @@ public:
     int pustawienie1=0;
     int pustawienie2=0;
 
+    void pre(int kat);
 
     Kwadrat(std::vector<int> asd,int x,int y ,int z);
     void step(int kat);

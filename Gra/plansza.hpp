@@ -27,7 +27,7 @@ public:
 int rozmiarz=1000;
 int rozmiarx=1000;
 int rozmiary=1000;
-int szybkosc=1;
+float szybkosc=1;
     Plansza(int x, int y ,int z,int szy);
 
     void drawpomoc(int kat);
