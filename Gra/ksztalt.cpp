@@ -12,7 +12,7 @@ Ksztalt::Ksztalt(Plansza & asde)
     color1=( std::rand() % 255 );
     color2=( std::rand() % 255 );
     color3=( std::rand() % 255 );
-    iloelem=( std::rand() % 5 );
+    //iloelem=( std::rand() % 5 );
 
     switch (iloelem)
     {
@@ -80,7 +80,6 @@ int Ksztalt::step(int kat, Ustalone & asd)
                 if(reca.kolizja1(asd.elementyus)==0)
                 {ui8++;}
             }
-            std::cout<<ui8<<std::endl;
 
             if(ui8==0)
             {

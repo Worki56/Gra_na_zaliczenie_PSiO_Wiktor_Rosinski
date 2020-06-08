@@ -31,50 +31,50 @@ void Kwadrat::step(int kat)
 
 void Kwadrat::zamiana()
 {
-    if(abs(ustawienie1%4)==0)
+    if(ustawienie1%4==0)
     {
         pdx1=distancex;
         pdz1=distancez;
         pdy1=distancey;
     }
-    else if(abs(ustawienie1%4)==1)
+    else if(ustawienie1%4==1 || ustawienie1%4==-3)
     {
         pdx1=distancez;
         pdz1=distancex;
         pdy1=distancey;
     }
-    else if(abs(ustawienie1%4)==2)
+    else if(ustawienie1%4==2 || ustawienie1%4==-2)
     {
         pdx1=-distancex;
         pdz1=-distancez;
         pdy1=distancey;
     }
-    else if(abs(ustawienie1%4)==3)
+    else if(ustawienie1%4==3 ||  ustawienie1%4==-1)
     {
         pdx1=-distancez;
         pdz1=-distancex;
         pdy1=distancey;
     }
 
-    if(abs(ustawienie2%4)==0)
+    if(ustawienie2%4==0)
     {
         pdy2=pdy1;
         pdz2=pdz1;
         pdx2=pdx1;
     }
-    else if(abs(ustawienie2%4)==1)
+    else if(ustawienie2%4==1 || ustawienie2%4==-3)
     {
         pdy2=pdx1;
         pdz2=pdz1;
         pdx2=pdy1;
     }
-    else if(abs(ustawienie2%4)==2)
+    else if(ustawienie2%4==2 || ustawienie2%4==-2)
     {
         pdy2=-pdy1;
         pdz2=pdz1;
         pdx2=-pdx1;
     }
-    else if(abs(ustawienie2%4)==3)
+    else if(ustawienie2%4==3 || ustawienie2%4==-1)
     {
         pdy2=-pdx1;
         pdz2=pdz1;
@@ -84,50 +84,50 @@ void Kwadrat::zamiana()
 
 void Kwadrat::przamiana()
 {
-    if(abs(pustawienie1%4)==0)
+    if(pustawienie1%4==0 )
     {
         ppdx1=distancex;
         ppdz1=distancez;
         ppdy1=distancey;
     }
-    else if(abs(pustawienie1%4)==1)
+    else if(pustawienie1%4==1 || pustawienie1%4==-3 )
     {
         ppdx1=distancez;
         ppdz1=distancex;
         ppdy1=distancey;
     }
-    else if(abs(pustawienie1%4)==2)
+    else if(pustawienie1%4==2 || pustawienie1%4==-2)
     {
         ppdx1=-distancex;
         ppdz1=-distancez;
         ppdy1=distancey;
     }
-    else if(abs(pustawienie1%4)==3)
+    else if(pustawienie1%4==3 ||  pustawienie1%4==-1)
     {
         ppdx1=-distancez;
         ppdz1=-distancex;
         ppdy1=distancey;
     }
 
-    if(abs(pustawienie2%4)==0)
+    if(pustawienie2%4==0)
     {
         ppdy2=ppdy1;
         ppdz2=ppdz1;
         ppdx2=ppdx1;
     }
-    else if(abs(pustawienie2%4)==1)
+    else if(pustawienie2%4==1 || pustawienie2%4==-3)
     {
         ppdy2=ppdx1;
         ppdz2=ppdz1;
         ppdx2=ppdy1;
     }
-    else if(abs(pustawienie2%4)==2)
+    else if(pustawienie2%4==2 ||  pustawienie2%4==-2)
     {
         ppdy2=-ppdy1;
         ppdz2=ppdz1;
         ppdx2=-ppdx1;
     }
-    else if(abs(pustawienie2%4)==3)
+    else if(pustawienie2%4==3 || pustawienie2%4==-1)
     {
         ppdy2=-ppdx1;
         ppdz2=ppdz1;
@@ -260,6 +260,10 @@ int Kwadrat::step(int kat, std::vector<Kwadrat> & asd)
    if(prawdziwez<=0)
    {
        prawdziwez=0;
+       distancez1=prawdziwez-pdz2;
+       prawdziwey=distancey1+pdy2;
+       prawdziwex=distancex1+pdx2;
+
        dziala=0;
        return distancez1;
    }

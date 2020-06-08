@@ -2,7 +2,7 @@
 #include "fun.hpp"
 #include <fstream>
 
-
+#include <SFML/Window.hpp>
 
 
 int main()
@@ -38,10 +38,6 @@ int main()
 
 
 
-
-
-
-
     system("chcp 65001");
     int op;
     int i=0;
@@ -54,7 +50,11 @@ int main()
         std::cout<<"3.Wyniki"<<std::endl;
         std::cout<<"4.Jak działa gra"<<std::endl;
         std::cout<<"5.Koniec"<<std::endl;
+
         std::cin>>op;
+
+
+
         if( !std::cin )
         {
             system("cls");

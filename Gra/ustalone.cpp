@@ -94,8 +94,9 @@ int Ustalone::sprawdzanie()
     double punkty1;
     punkty1=punkty+(zlicz*zlicz*((3*3)/((wymiarx/100)*(wymiary/100))));
     if(punkty1!=punkty){
-    system("cls");
-    std::cout<<"Posiadane punkty:"<<punkty<<std::endl;
+    //system("cls");
+    std::cout<<"Posiadane punkty:"<<punkty1<<std::endl;
+    punkty=punkty1;
     }
     return 1;
 }

@@ -20,7 +20,6 @@
 
 
 #include "fun.hpp"
-//#include "kwadrat.hpp"
 #include "ksztalt.hpp"
 #include "ustalone.hpp"
 #include "plansza.hpp"
@@ -67,7 +66,8 @@ void Opcja1()
         }
     }
     spr=0;
-    while(spr==0){
+    while(spr==0)
+    {
         std::cout<<"Podaj illośc kratek y"<<std::endl;
         std::cin>>a1;
         if( !std::cin )
@@ -104,6 +104,10 @@ void Opcja1()
         }
     }
 
+
+
+
+
     if(dlu<=dlu1){dlu2=dlu1;}
     else{dlu2=dlu;}
     spr=0;
@@ -124,9 +128,9 @@ void Opcja1()
             else{std::cout<<"Podałeś złą liczbe"<<std::endl;}
         }
     }
-    std::cout<<"Posiadane punkty:0"<<std::endl;
 
-    szyb=5;
+
+
 
     sf::Window window(sf::VideoMode(1024, 768), "Tetris3D", sf::Style::Default, sf::ContextSettings(32));
     window.setVerticalSyncEnabled(true);
@@ -154,6 +158,10 @@ void Opcja1()
     GLfloat global_ambient[] = {0.3, 0.3, 0.3, 0.1};
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
     glEnable(GL_NORMALIZE) ;
+
+     system("cls");
+     std::cout<<"Posiadane punkty:0"<<std::endl;
+
     bool running = true;
 
     Plansza plan(dlu,dlu1,wys,szyb);
@@ -167,9 +175,11 @@ void Opcja1()
     std::string ust1;
     pk5.emplace_back(plan);
 
+    sf::Event event;
+
     while (running)
     {
-        system("cls");
+
 
         if(szyb1==3)
         {
@@ -239,9 +249,11 @@ void Opcja1()
                 reca.pre(szyb3);
             }
 
-            sf::Event event;
+
             while (window.pollEvent(event))
             {
+
+
 
                 if (event.type == sf::Event::MouseWheelScrolled)
                 {
@@ -250,13 +262,17 @@ void Opcja1()
 
                 if (event.type == sf::Event::Closed)
                 {
+                    std::cout<<"Koniec gry"<<std::endl;
+                    pausa=pk4.punkty;
                     running = false;
+                    window.close();
                 }
                 else if (event.type == sf::Event::Resized)
                 {
 
                     set_viewport(event.size.width, event.size.height,wys,dlu2);
                 }
+
             }
 
 
@@ -297,32 +313,106 @@ void Opcja1()
 
 
 }
-void Opcja2(){}
-void Opcja3(){
+void Opcja2()
+{
+    int i=0;
+    int op;
+    std::fstream file("opcje.txt");
+
+    if (file.is_open())
+    {
+        std::cout<<"ala"<<std::endl;
+        std::string line;
+        while (std::getline(file, line))
+        {
+            std::stringstream str(line);
+            std::cout<<line<<std::endl;
+        }
+    }
+
+
+
+    system("cls");
+
+    while(i==0){
+        std::cout<<"Wybierz opcje zmiany przypisanego Klawisza"<<std::endl;
+        std::cout<<"1.Ruch w przód x"<<std::endl;
+        std::cout<<"2.Ruch w tył x"<<std::endl;
+        std::cout<<"3.Ruch w przód y"<<std::endl;
+        std::cout<<"4.Ruch w tył y"<<std::endl;
+        std::cout<<"5.Pausa"<<std::endl;
+        std::cout<<"6.Linie pomocnicze"<<std::endl;
+        std::cout<<"7.Koniec"<<std::endl;
+        std::cin>>op;
+        if( !std::cin )
+        {
+            system("cls");
+            czyszczenie();
+        }
+        else
+        {
+            switch (op)
+            {
+            case 1:
+                Opcja5();
+                system("cls");
+                break;
+            case 2:
+                Opcja2();
+                system("cls");
+                break;
+            case 3:
+                Opcja3();
+                system("cls");
+                break;
+            case 4:
+                Opcja4();
+                system("cls");
+                break;
+            case 5:
+
+                break;
+            case 6:
+
+                break;
+            case 7:
+                i=1;
+                break;
+            default:
+                system("cls");
+                std::cout<<"Podałeś złą opcje spróbuj jeszcze raz"<<std::endl;
+                break;
+            }
+        }
+    }
+
+
+}
+void Opcja3()
+{
 
     int a=1;
     std::fstream file("wynik.txt");
 
-        if (file.is_open())
-        {
-            std::cout<<"ala"<<std::endl;
-            std::string line;
-            while (std::getline(file, line))
-            {
-                std::stringstream str(line);
-                std::cout<<line<<std::endl;
-            }
-        }
+    if (file.is_open())
+    {
 
-
-        std::cout<<"Nacińskij BackSpace a wrócić do Menu"<<std::endl;
-        while (a !=0)
+        std::string line;
+        while (std::getline(file, line))
         {
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
-            {
-                a=0;
-            }
+            std::stringstream str(line);
+            std::cout<<line<<std::endl;
         }
+    }
+    std::cout<<"Nacińskij BackSpace a wrócić do Menu"<<std::endl;
+    while (a !=0)
+    {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
+        {
+            a=0;
+        }
+    }
+
 
 
 
@@ -349,7 +439,38 @@ void Opcja4()
         }
     }
 }
+void Opcja5()
+{
 
+    sf::Keyboard::Key asd;
+    bool running = true;
+
+
+
+    sf::Window window(sf::VideoMode(1, 1), "Ust");;
+
+
+
+    sf::Event event;
+    std::cout<<"Wybierz klawisz"<<std::endl;
+    while (running)
+    {
+
+        while (window.pollEvent(event))
+        {
+
+        if( event.type == sf::Event::KeyPressed  )
+        {
+
+            asd=event.key.code ;
+
+            window.close();
+        }
+        }
+   }
+
+
+}
 void czyszczenie()
 {
     std::cin.clear();
