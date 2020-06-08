@@ -341,7 +341,7 @@ void Opcja4()
 {
     system("cls");
     std::cout<<"Gra opiera się na mechanice znanej z gry tetris."<<std::endl;
-    std::cout<<"Strzałkami góra/dół obracamy klocek w osi y a strzałkami w bok w osi z o 90 stopni "<<std::endl;
+    std::cout<<"Strzałkami góra/dół obracamy klocek w osi x a strzałkami w bok w osi z o 90 stopni "<<std::endl;
     std::cout<<"Klawiszem E przesuwamy obiekt w osi x w przód a R w tył "<<std::endl;
     std::cout<<"Klawiszem F przesuwamy obiekt w osi y w przód a D w tył "<<std::endl;
     std::cout<<"Klawiszem P urachamiamy pause "<<std::endl;
