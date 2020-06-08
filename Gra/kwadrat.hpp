@@ -39,16 +39,12 @@ public:
     int distancey=0;
     int diameter=100;
 
-    int pdx1=0;
-    int pdy1=0;
-    int pdz1=0;
+
     int pdx2=0;
     int pdy2=0;
     int pdz2=0;
 
-    int ppdx1=0;
-    int ppdy1=0;
-    int ppdz1=0;
+
     int ppdx2=0;
     int ppdy2=0;
     int ppdz2=0;
@@ -57,9 +53,6 @@ public:
     int prawdziwex=0;
     int prawdziwey=0;
 
-    int probnez=0;
-    int probney=0;
-    int probnex=0;
 
     int przesuniecie=1;
     int przesuniecie1=100;
@@ -75,10 +68,10 @@ public:
     int pustawienie1=0;
     int pustawienie2=0;
 
-    void pre(int kat);
+    void pre(int  kat);
 
-    Kwadrat(std::vector<int> asd,int x,int y ,int z);
-    void step(int kat);
+    Kwadrat(std::vector<int>  asd,int  x,int  y ,int  z);
+    void step(int & kat);
 
     void zamiana();
 
@@ -92,18 +85,18 @@ public:
    void kolizja11();
 
 
-   int kolizjaprob(std::vector<Kwadrat> & asd);
+   int kolizjaprob(std::vector<Kwadrat>  asd);
 
-   int kolizjaprob(std::vector<Kwadrat> & asd,int xd,int yd);
+   int kolizjaprob(std::vector<Kwadrat>  asd,int xd,int yd);
 
 
-    int step(int kat, std::vector<Kwadrat> & asd);
+    int step(int & kat, std::vector<Kwadrat> & asd);
 
-    void as(int a);
+    void as(int & a);
 
-    void draw(int kat);
+    void draw(int & kat);
 
-    void draw_cube(double size, double color1, double color2, double color3);
+    void draw_cube(double  size, double  color1, double  color2, double  color3);
 
 
 };

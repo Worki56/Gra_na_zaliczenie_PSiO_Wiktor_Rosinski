@@ -12,7 +12,7 @@ Ksztalt::Ksztalt(Plansza & asde)
     color1=( std::rand() % 255 );
     color2=( std::rand() % 255 );
     color3=( std::rand() % 255 );
-    //iloelem=( std::rand() % 5 );
+    iloelem=( std::rand() % 5 );
 
     switch (iloelem)
     {
@@ -67,7 +67,7 @@ Ksztalt::Ksztalt(Plansza & asde)
     }
 }
 
-int Ksztalt::step(int kat, Ustalone & asd)
+int Ksztalt::step(int  & kat, Ustalone & asd)
 {
     if(zwal==0)
     {
@@ -254,8 +254,6 @@ int Ksztalt::step(int kat, Ustalone & asd)
         }
     }
 
-
-
     for(auto &reca : elementy)
     {
         int alas=reca.step(kat,asd.elementyus);
@@ -264,14 +262,12 @@ int Ksztalt::step(int kat, Ustalone & asd)
             for(auto &reca : elementy)
             {
                 reca.as(alas);
-
             }
-             koniec=0;
+            koniec=0;
             break;
-
         }
-
     }
+
     if(koniec==0)
     {
         for(auto &reca : elementy)
@@ -288,3 +284,12 @@ int Ksztalt::step(int kat, Ustalone & asd)
     return 1;
 }
 
+void Ksztalt::draw(int  & kat)
+
+{
+    for(auto &reca : elementy)
+    {
+        reca.draw(kat);
+    }
+
+}

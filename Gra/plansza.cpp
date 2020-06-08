@@ -2,15 +2,9 @@
 
 
 
-Plansza::Plansza(int x, int y ,int z,int szy)
-{
-    rozmiarx=x;
-    rozmiary=y;
-    rozmiarz=z;
-    szybkosc=szy;
-}
+Plansza::Plansza(int & x, int &y ,int &z,int &szy):rozmiarz(z),rozmiarx(x),rozmiary(y),szybkosc(szy){}
 
-void Plansza::drawpomoc(int kat)
+void Plansza::drawpomoc(int &kat)
 {
     for(int i=-rozmiarx-50;i<rozmiarx+50+1;i=i+100)
     {

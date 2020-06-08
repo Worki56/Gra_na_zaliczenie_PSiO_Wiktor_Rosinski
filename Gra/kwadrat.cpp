@@ -3,34 +3,28 @@
 
 
 
-Kwadrat::Kwadrat(std::vector<int> asd,int x,int y ,int z)
+Kwadrat::Kwadrat(std::vector<int>  asd,int  x,int  y ,int  z):wymiarx(asd[0]),wymiary(asd[1]),distancez(z),distancez1(asd[2]+500),distancex(x),distancey(y)
 {
-    wymiarx=asd[0];
-    wymiary=asd[1];
-    distancez1=asd[2]+500;
-
-    przesuniecie=przesuniecie*asd[3];
-    distancex=x;
-    distancey=y;
-    distancez=z;
+    przesuniecie=przesuniecie*asd[3];   
     zamiana();
 }
 
-void Kwadrat::pre(int kat)
+void Kwadrat::pre(int  kat)
 {
     przesuniecie=1*kat;
-
 }
 
-
-void Kwadrat::step(int kat)
+void Kwadrat::step(int & kat)
 {
    draw(kat);
-
 }
 
 void Kwadrat::zamiana()
 {
+    int pdx1;
+    int pdy1;
+    int pdz1;
+
     if(ustawienie1%4==0)
     {
         pdx1=distancex;
@@ -84,6 +78,10 @@ void Kwadrat::zamiana()
 
 void Kwadrat::przamiana()
 {
+    int ppdx1;
+    int ppdy1;
+    int ppdz1;
+
     if(pustawienie1%4==0 )
     {
         ppdx1=distancex;
@@ -135,7 +133,6 @@ void Kwadrat::przamiana()
     }
 }
 
-
 int Kwadrat::kolizja(std::vector<Kwadrat> & asd)
 {
    for(auto &reca : asd)
@@ -177,13 +174,12 @@ void Kwadrat::kolizja11()
    distancez1=distancez1-100;
 }
 
-
-int Kwadrat::kolizjaprob(std::vector<Kwadrat> & asd)
+int Kwadrat::kolizjaprob(std::vector<Kwadrat>  asd)
 {
    przamiana();
-   probnez=distancez1+ppdz2;
-   probney=distancey1+ppdy2;
-   probnex=distancex1+ppdx2;
+   int probnez=distancez1+ppdz2;
+   int probney=distancey1+ppdy2;
+   int probnex=distancex1+ppdx2;
 
    if(probnez<0)
    {
@@ -208,14 +204,14 @@ int Kwadrat::kolizjaprob(std::vector<Kwadrat> & asd)
    return 1;
 }
 
-int Kwadrat::kolizjaprob(std::vector<Kwadrat> & asd,int xd,int yd)
+int Kwadrat::kolizjaprob(std::vector<Kwadrat>  asd,int  xd,int  yd)
 {
    pustawienie1=ustawienie1;
    pustawienie2=ustawienie2;
    przamiana();
-   probnez=distancez1+ppdz2;
-   probney=distancey1+ppdy2+yd*przesuniecie1;
-   probnex=distancex1+ppdx2+xd*przesuniecie1;
+   int probnez=distancez1+ppdz2;
+   int probney=distancey1+ppdy2+yd*przesuniecie1;
+   int probnex=distancex1+ppdx2+xd*przesuniecie1;
 
    if(probnez<0)
    {
@@ -240,8 +236,7 @@ int Kwadrat::kolizjaprob(std::vector<Kwadrat> & asd,int xd,int yd)
    return  1;
 }
 
-
-int Kwadrat::step(int kat, std::vector<Kwadrat> & asd)
+int Kwadrat::step(int & kat, std::vector<Kwadrat> & asd)
 {
    if(dziala==1)
    {
@@ -270,12 +265,12 @@ int Kwadrat::step(int kat, std::vector<Kwadrat> & asd)
    else{return 1;}
 }
 
-void Kwadrat::as(int a)
+void Kwadrat::as(int & a)
 {
     prawdziwez=a+pdz2;
 }
 
-void Kwadrat::draw(int kat)
+void Kwadrat::draw(int & kat)
 {
    glPushMatrix();
    glRotated(kat, 0.0, 0.0, 1.0);
@@ -284,11 +279,10 @@ void Kwadrat::draw(int kat)
    glPopMatrix();
 }
 
-void Kwadrat::draw_cube(double size, double color1, double color2, double color3)
+void Kwadrat::draw_cube(double  size, double  color1, double  color2, double  color3)
 {
 
     double half_cube_size = size / 2.0;
-
 
     glColor3d(color1, color2, color3);
     glBegin(GL_POLYGON);

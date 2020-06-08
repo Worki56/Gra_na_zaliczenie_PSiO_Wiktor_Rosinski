@@ -26,7 +26,7 @@
 
 void Opcja1()
 {
-    int spr=0;
+
     int a1;
 
 
@@ -47,7 +47,7 @@ void Opcja1()
     srand( time( NULL ) );
     system("cls");
     std::cout<<"Zalecane ilość kratek to 5 do 21 dla x y z oraz powinna byc nieparzysta"<<std::endl;
-    while(spr==0)
+    while(1)
     {
         std::cout<<"Podaj illośc kratek x"<<std::endl;
         std::cin>>a1;
@@ -60,13 +60,13 @@ void Opcja1()
             if(a1%2==1 && a1>=5)
             {
                 dlu=((a1-1)/2)*100;
-                spr=1;
+                break;
             }
             else{std::cout<<"Podałeś złą liczbe"<<std::endl;}
         }
     }
-    spr=0;
-    while(spr==0)
+
+    while(1)
     {
         std::cout<<"Podaj illośc kratek y"<<std::endl;
         std::cin>>a1;
@@ -79,13 +79,13 @@ void Opcja1()
             if(a1%2==1 && a1>=5)
             {
                 dlu1=((a1-1)/2)*100;
-                spr=1;
+                break;
             }
             else{std::cout<<"Podałeś złą liczbe"<<std::endl;}
         }
     }
-    spr=0;
-    while(spr==0)
+
+    while(1)
     {
         std::cout<<"Podaj illośc kratek z"<<std::endl;
         std::cin>>a1;
@@ -98,20 +98,17 @@ void Opcja1()
             if(a1>=5)
             {
                 wys=(a1-1)*100;
-                spr=1;
+                break;
             }
             else{std::cout<<"Podałeś złą liczbe"<<std::endl;}
         }
     }
 
 
-
-
-
     if(dlu<=dlu1){dlu2=dlu1;}
     else{dlu2=dlu;}
-    spr=0;
-    while(spr==0){
+
+    while(1){
         std::cout<<"Podaj szybkość początkową {1,2,3}"<<std::endl;
         std::cin>>a1;
         if( !std::cin )
@@ -122,14 +119,12 @@ void Opcja1()
         {
             if(a1==3 || a1==2 || a1==1)
             {
-                spr=1;
                 szyb1=a1;
+                break;
             }
             else{std::cout<<"Podałeś złą liczbe"<<std::endl;}
         }
     }
-
-
 
 
     sf::Window window(sf::VideoMode(1024, 768), "Tetris3D", sf::Style::Default, sf::ContextSettings(32));
@@ -141,79 +136,49 @@ void Opcja1()
     glEnable(GL_SMOOTH);
     glShadeModel(GL_SMOOTH);
 
-
-    GLfloat light_position[] = { 100.0, 100.0, 100.0, 1.0 };
-    GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
-    GLfloat light_diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
-    GLfloat light_specular[] = { 0.0, 0.0, 0.0, 1.0 };
-
-    glLightfv( GL_LIGHT0, GL_POSITION, light_position);
-    glLightfv( GL_LIGHT0, GL_AMBIENT, light_ambient);
-    glLightfv( GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-    glLightfv( GL_LIGHT0, GL_SPECULAR, light_specular);
-    glEnable( GL_LIGHTING );
-    glEnable( GL_LIGHT0 );
-
-
-    GLfloat global_ambient[] = {0.3, 0.3, 0.3, 0.1};
-    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, global_ambient);
-    glEnable(GL_NORMALIZE) ;
-
-     system("cls");
-     std::cout<<"Posiadane punkty:0"<<std::endl;
-
+    system("cls");
+    std::cout<<"Posiadane punkty:0"<<std::endl;
     bool running = true;
-
     Plansza plan(dlu,dlu1,wys,szyb);
     Ustalone pk4(plan);
-
-
     std::vector<Ksztalt> pk5;
-
-
     int ala=0;
     std::string ust1;
     pk5.emplace_back(plan);
-
     sf::Event event;
+    if(szyb1==3)
+    {
+        szyb=9;
+    }
+    else if(szyb1==2)
+    {
+       if(pk4.punkty>100)
+       {
+          szyb=9;
+       }
+       else{szyb=4;}
+    }
+    else if(szyb1==1)
+    {
+        if(pk4.punkty>1000)
+         {
+           szyb=9;
+         }
+        else if(pk4.punkty>100)
+        {
+            szyb=4;
 
+        }
+        else{szyb=1;}
+
+    }
     while (running)
     {
 
 
-        if(szyb1==3)
-        {
-            szyb=3;
-        }
-        else if(szyb1==2)
-        {
-           if(pk4.punkty>100)
-           {
-              szyb=3;
-           }
-           else{szyb=2;}
-        }
-        else if(szyb1==1)
-        {
-            if(pk4.punkty>1000)
-             {
-               szyb=3;
-             }
-            else if(pk4.punkty>100)
-            {
-                szyb=2;
-
-            }
-            else{szyb=1;}
-
-        }
-        szyb=szyb*2;
-
-
         sf::Time elapsed1 = clk.restart();
         licznik++;
-        sekunda=sekunda+elapsed1.asSeconds();
-        //std::cout<<elapsed.asMicroseconds()<<std::endl;
+        sekunda=sekunda+elapsed1.asSeconds();        
         if(sekunda>1.0)
         {
             sekunda=sekunda-1.0;
@@ -221,7 +186,6 @@ void Opcja1()
             licznik1=licznik;
             licznik=0;
         }
-
         if(z==0)
         {
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
@@ -240,6 +204,31 @@ void Opcja1()
             }
         }
 
+        while (window.pollEvent(event))
+        {
+
+
+
+            if (event.type == sf::Event::MouseWheelScrolled)
+            {
+                ala=ala+event.mouseWheelScroll.delta*10;
+            }
+
+            if (event.type == sf::Event::Closed)
+            {
+                std::cout<<"Koniec gry"<<std::endl;
+                pausa=pk4.punkty;
+                running = false;
+                window.close();
+            }
+            else if (event.type == sf::Event::Resized)
+            {
+
+                set_viewport(event.size.width, event.size.height,wys,dlu2);
+            }
+
+        }
+
         if(pausa==0)
         {
             szyb3=szyb*(licznik1/60);
@@ -248,33 +237,6 @@ void Opcja1()
             {
                 reca.pre(szyb3);
             }
-
-
-            while (window.pollEvent(event))
-            {
-
-
-
-                if (event.type == sf::Event::MouseWheelScrolled)
-                {
-                    ala=ala+event.mouseWheelScroll.delta*10;
-                }
-
-                if (event.type == sf::Event::Closed)
-                {
-                    std::cout<<"Koniec gry"<<std::endl;
-                    pausa=pk4.punkty;
-                    running = false;
-                    window.close();
-                }
-                else if (event.type == sf::Event::Resized)
-                {
-
-                    set_viewport(event.size.width, event.size.height,wys,dlu2);
-                }
-
-            }
-
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glColorMaterial (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE) ;
@@ -295,8 +257,48 @@ void Opcja1()
                     running = false;
                     window.close();
                 }
+                else
+                {
+
+
+                    if(szyb1==3)
+                    {
+                        szyb=9;
+                    }
+                    else if(szyb1==2)
+                    {
+                       if(pk4.punkty>100)
+                       {
+                          szyb=9;
+                       }
+                       else{szyb=4;}
+                    }
+                    else if(szyb1==1)
+                    {
+                        if(pk4.punkty>1000)
+                         {
+                           szyb=9;
+                         }
+                        else if(pk4.punkty>100)
+                        {
+                            szyb=4;
+
+                        }
+                        else{szyb=1;}
+
+                    }
+                }
             }
             pk4.step(ala);
+        }
+        else
+        {
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glColorMaterial (GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE) ;
+            glEnable (GL_COLOR_MATERIAL);
+            plan.drawpomoc(ala);
+            pk4.step(ala);
+            pk5[0].draw(ala);
         }
         window.display();
     }
@@ -313,90 +315,12 @@ void Opcja1()
 
 
 }
-void Opcja2()
-{
-    int i=0;
-    int op;
-    std::fstream file("opcje.txt");
 
-    if (file.is_open())
-    {
-        std::cout<<"ala"<<std::endl;
-        std::string line;
-        while (std::getline(file, line))
-        {
-            std::stringstream str(line);
-            std::cout<<line<<std::endl;
-        }
-    }
-
-
-
-    system("cls");
-
-    while(i==0){
-        std::cout<<"Wybierz opcje zmiany przypisanego Klawisza"<<std::endl;
-        std::cout<<"1.Ruch w przód x"<<std::endl;
-        std::cout<<"2.Ruch w tył x"<<std::endl;
-        std::cout<<"3.Ruch w przód y"<<std::endl;
-        std::cout<<"4.Ruch w tył y"<<std::endl;
-        std::cout<<"5.Pausa"<<std::endl;
-        std::cout<<"6.Linie pomocnicze"<<std::endl;
-        std::cout<<"7.Koniec"<<std::endl;
-        std::cin>>op;
-        if( !std::cin )
-        {
-            system("cls");
-            czyszczenie();
-        }
-        else
-        {
-            switch (op)
-            {
-            case 1:
-                Opcja5();
-                system("cls");
-                break;
-            case 2:
-                Opcja2();
-                system("cls");
-                break;
-            case 3:
-                Opcja3();
-                system("cls");
-                break;
-            case 4:
-                Opcja4();
-                system("cls");
-                break;
-            case 5:
-
-                break;
-            case 6:
-
-                break;
-            case 7:
-                i=1;
-                break;
-            default:
-                system("cls");
-                std::cout<<"Podałeś złą opcje spróbuj jeszcze raz"<<std::endl;
-                break;
-            }
-        }
-    }
-
-
-}
 void Opcja3()
 {
-
-    int a=1;
     std::fstream file("wynik.txt");
-
     if (file.is_open())
     {
-
         std::string line;
         while (std::getline(file, line))
         {
@@ -405,89 +329,49 @@ void Opcja3()
         }
     }
     std::cout<<"Nacińskij BackSpace a wrócić do Menu"<<std::endl;
-    while (a !=0)
+    while (1)
     {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
         {
-            a=0;
+            break;
         }
     }
-
-
-
-
 }
 void Opcja4()
 {
-    int a=1;
     system("cls");
     std::cout<<"Gra opiera się na mechanice znanej z gry tetris."<<std::endl;
     std::cout<<"Strzałkami góra/dół obracamy klocek w osi y a strzałkami w bok w osi z o 90 stopni "<<std::endl;
-    std::cout<<"Domyślnie klawiszem E przesuwamy obiekt w osi x w przód a R w tył "<<std::endl;
+    std::cout<<"Klawiszem E przesuwamy obiekt w osi x w przód a R w tył "<<std::endl;
     std::cout<<"Klawiszem F przesuwamy obiekt w osi y w przód a D w tył "<<std::endl;
     std::cout<<"Klawiszem P urachamiamy pause "<<std::endl;
     std::cout<<"Spacją przesuwamy w dół obiekt"<<std::endl;
     std::cout<<"Sroolem myszy obracmy plansze"<<std::endl;
-    std::cout<<"W opcjach można wyłączyć linie pomocnicze"<<std::endl;
     std::cout<<"Autor Wiktor Rosiński"<<std::endl;
     std::cout<<"Nacińskij BackSpace a wrócić do Menu"<<std::endl;
-    while (a !=0)
+    while (1)
     {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
         {
-            a=0;
+            break;
         }
     }
 }
-void Opcja5()
-{
 
-    sf::Keyboard::Key asd;
-    bool running = true;
-
-
-
-    sf::Window window(sf::VideoMode(1, 1), "Ust");;
-
-
-
-    sf::Event event;
-    std::cout<<"Wybierz klawisz"<<std::endl;
-    while (running)
-    {
-
-        while (window.pollEvent(event))
-        {
-
-        if( event.type == sf::Event::KeyPressed  )
-        {
-
-            asd=event.key.code ;
-
-            window.close();
-        }
-        }
-   }
-
-
-}
 void czyszczenie()
 {
     std::cin.clear();
     std::cin.sync();
     std::cout<<"Podałeś złą wartość "<<std::endl;
-
 }
 
-void set_viewport(int width, int height,int wys, int dlu)
+void set_viewport(int  width, int  height,int & wys, int & dlu)
 {
     int as;
     const float ar = (float)width / (float)height;
     if(wys>dlu){as=wys;}
     else{as=dlu;}
-
     glViewport(0, 0, width, height);
-
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glFrustum(-ar, ar, -1.0, 1.0, 2.0, as*20);

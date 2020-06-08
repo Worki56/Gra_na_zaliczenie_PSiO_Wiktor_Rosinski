@@ -39,9 +39,9 @@ public:
 
     Ksztalt(Plansza & asde);
 
+    int step(int & kat, Ustalone & asd);
 
-
-    int step(int kat, Ustalone & asd);
+    void draw(int  & kat);
 
 
 };

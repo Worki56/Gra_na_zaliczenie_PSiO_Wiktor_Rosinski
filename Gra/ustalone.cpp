@@ -1,31 +1,20 @@
 #include "ustalone.hpp"
 
-Ustalone::Ustalone(Plansza asd)
-{
-    wymiarx=asd.rozmiarx;
-    wymiary=asd.rozmiary;
-    wymiarz=asd.rozmiarz;
-
-
-}
-
+Ustalone::Ustalone(Plansza asd):wymiarx(asd.rozmiarx),wymiary(asd.rozmiary),wymiarz(asd.rozmiarz){}
 
 void Ustalone::step(int kat)
 {
     for(auto &reca : elementyus)
     {
         reca.step(kat);
-
-
     }
-
-
 }
 
 int Ustalone::sprawdzanie()
 {
-    zlicz=0;
-    klo=0;
+    int zlicz=0;
+    int klo=0;
+
     std::vector<int> pelne;
     for(int i=0; i<=wymiarz; i=i+100)
     {
@@ -59,11 +48,12 @@ int Ustalone::sprawdzanie()
             pelne.emplace_back(i);
             zlicz++;
         }
-        klo=0;
+
     }
 
     for(auto &reca : pelne)
     {
+        std::vector<Kwadrat> elementyus2;
         int asdd=0;
         for(auto &rec : elementyus)
         {
@@ -79,24 +69,24 @@ int Ustalone::sprawdzanie()
             }
             asdd++;
         }
-        for(auto &reca : pelne)
+        for(auto &reca1 : pelne)
         {
-            reca=reca-100;
+            reca1=reca1-100;
         }
         elementyus.clear();
         for(auto &reca : elementyus2)
         {
             elementyus.emplace_back(reca);
         }
-        elementyus2.clear();
+
 
     }
     double punkty1;
     punkty1=punkty+(zlicz*zlicz*((3*3)/((wymiarx/100)*(wymiary/100))));
-    if(punkty1!=punkty){
-    //system("cls");
-    std::cout<<"Posiadane punkty:"<<punkty1<<std::endl;
-    punkty=punkty1;
+    if(punkty1!=punkty)
+    {
+        std::cout<<"Posiadane punkty:"<<punkty1<<std::endl;
+        punkty=punkty1;
     }
     return 1;
 }

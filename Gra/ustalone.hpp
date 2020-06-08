@@ -18,16 +18,16 @@
 class Ustalone {
 public:
 std::vector<Kwadrat> elementyus;
-std::vector<Kwadrat> elementyus2;
+
 friend class Ksztalt;
 
 int wymiarx=1000;
 int wymiary=1000;
 int wymiarz=1000;
-int zlicz=0;
+
 double punkty=0;
 
-int klo=0;
+
 
 Ustalone(Plansza asd);
 
