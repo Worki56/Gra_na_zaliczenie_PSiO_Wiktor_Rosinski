@@ -24,10 +24,10 @@
 #include "ustalone.hpp"
 #include "plansza.hpp"
 
-void Opcja1()
+int Opcja1(int &a1,int &a2,int &a3,int &a4)
 {
 
-    int a1;
+
 
 
     int z=0;
@@ -45,87 +45,17 @@ void Opcja1()
     int szyb=3;
     double szyb3=3;
     srand( time( NULL ) );
-    system("cls");
-    std::cout<<"Zalecane ilość kratek to 5 do 21 dla x y z oraz powinna byc nieparzysta"<<std::endl;
-    while(1)
-    {
-        std::cout<<"Podaj illośc kratek x"<<std::endl;
-        std::cin>>a1;
-        if( !std::cin )
-        {
-            czyszczenie();
-        }
-        else
-        {
-            if(a1%2==1 && a1>=5)
-            {
-                dlu=((a1-1)/2)*100;
-                break;
-            }
-            else{std::cout<<"Podałeś złą liczbe"<<std::endl;}
-        }
-    }
 
-    while(1)
-    {
-        std::cout<<"Podaj illośc kratek y"<<std::endl;
-        std::cin>>a1;
-        if( !std::cin )
-        {
-            czyszczenie();
-        }
-        else
-        {
-            if(a1%2==1 && a1>=5)
-            {
-                dlu1=((a1-1)/2)*100;
-                break;
-            }
-            else{std::cout<<"Podałeś złą liczbe"<<std::endl;}
-        }
-    }
+    dlu=((a1-1)/2)*100;
+    dlu1=((a2-1)/2)*100;
+    wys=(a3-1)*100;
+    szyb1=a4;
 
-    while(1)
-    {
-        std::cout<<"Podaj illośc kratek z"<<std::endl;
-        std::cin>>a1;
-        if( !std::cin )
-        {
-            czyszczenie();
-        }
-        else
-        {
-            if(a1>=5)
-            {
-                wys=(a1-1)*100;
-                break;
-            }
-            else{std::cout<<"Podałeś złą liczbe"<<std::endl;}
-        }
-    }
+
 
 
     if(dlu<=dlu1){dlu2=dlu1;}
     else{dlu2=dlu;}
-
-    while(1){
-        std::cout<<"Podaj szybkość początkową {1,2,3}"<<std::endl;
-        std::cin>>a1;
-        if( !std::cin )
-        {
-            czyszczenie();
-        }
-        else
-        {
-            if(a1==3 || a1==2 || a1==1)
-            {
-                szyb1=a1;
-                break;
-            }
-            else{std::cout<<"Podałeś złą liczbe"<<std::endl;}
-        }
-    }
-
 
     sf::Window window(sf::VideoMode(1024, 768), "Tetris3D", sf::Style::Default, sf::ContextSettings(32));
     window.setVerticalSyncEnabled(true);
@@ -136,8 +66,8 @@ void Opcja1()
     glEnable(GL_SMOOTH);
     glShadeModel(GL_SMOOTH);
 
-    system("cls");
-    std::cout<<"Posiadane punkty:0"<<std::endl;
+
+
     bool running = true;
     Plansza plan(dlu,dlu1,wys,szyb);
     Ustalone pk4(plan);
@@ -252,10 +182,10 @@ void Opcja1()
 
                 if(pk4.sprawdzanie()==0)
                 {
-                    std::cout<<"Koniec gry"<<std::endl;
+
                     pausa=pk4.punkty;
                     running = false;
-                    window.close();
+                    //window.close();
                 }
                 else
                 {
@@ -302,61 +232,13 @@ void Opcja1()
         }
         window.display();
     }
-    std::string pseudonim;
-    std::cout<<"Otrzymałeś: "<<pausa<<" punktów"<<std::endl;
-    std::cout<<"Podaj pseudonim"<<std::endl;
-    std::cin>>pseudonim;
-    std::string nazwa_pliku="wynik.txt";
-    std::ofstream plik1(nazwa_pliku.c_str(),std::ios::app);
-
-    plik1<<pseudonim<<"  "<<pausa<<std::endl;
-    plik1.close();
 
 
+    return pausa;
 
 }
 
-void Opcja3()
-{
-    std::fstream file("wynik.txt");
-    if (file.is_open())
-    {
-        std::string line;
-        while (std::getline(file, line))
-        {
-            std::stringstream str(line);
-            std::cout<<line<<std::endl;
-        }
-    }
-    std::cout<<"Nacińskij BackSpace a wrócić do Menu"<<std::endl;
-    while (1)
-    {
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
-        {
-            break;
-        }
-    }
-}
-void Opcja4()
-{
-    system("cls");
-    std::cout<<"Gra opiera się na mechanice znanej z gry tetris."<<std::endl;
-    std::cout<<"Strzałkami góra/dół obracamy klocek w osi x a strzałkami w bok w osi z o 90 stopni "<<std::endl;
-    std::cout<<"Klawiszem E przesuwamy obiekt w osi x w przód a R w tył "<<std::endl;
-    std::cout<<"Klawiszem F przesuwamy obiekt w osi y w przód a D w tył "<<std::endl;
-    std::cout<<"Klawiszem P urachamiamy pause "<<std::endl;
-    std::cout<<"Spacją przesuwamy w dół obiekt"<<std::endl;
-    std::cout<<"Sroolem myszy obracmy plansze"<<std::endl;
-    std::cout<<"Autor Wiktor Rosiński"<<std::endl;
-    std::cout<<"Nacińskij BackSpace a wrócić do Menu"<<std::endl;
-    while (1)
-    {
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace))
-        {
-            break;
-        }
-    }
-}
+
 
 void czyszczenie()
 {
@@ -381,3 +263,134 @@ void set_viewport(int  width, int  height,int & wys, int & dlu)
 }
 
 
+std::vector<sf::Text> opdff(int &as, sf::Font &asf)
+{
+    int i=1;
+    std::vector<sf::Text> ads;
+    switch (as)
+    {
+    case 1:
+       ads.emplace_back(L"Witaj w Tetris3D",asf);
+       ads.emplace_back(L"Wybierz Opcje",asf);
+       ads.emplace_back(L"1.Gra",asf);
+       ads.emplace_back(L"2.Wyniki",asf);
+       ads.emplace_back(L"3.Jak działa gra",asf);
+       ads.emplace_back(L"4.Koniec",asf);
+       ads[0].setPosition(400,100);
+       ads[1].setPosition(100,200);
+       ads[2].setPosition(100,300);
+       ads[3].setPosition(100,400);
+       ads[4].setPosition(100,500);
+       ads[5].setPosition(100,600);
+       for(auto &reca : ads)
+       {
+           reca.setFillColor(sf::Color::White);
+           reca.setCharacterSize(34);
+       }
+        break;
+    case 2:
+
+        ads.emplace_back(L"Gra opiera się na mechanice znanej z gry tetris.",asf);
+        ads.emplace_back(L"Strzałkami góra/dół obracamy klocek w osi x",asf);
+        ads.emplace_back(L"a strzałkami w bok w osi z o 90 stopni.",asf);
+        ads.emplace_back(L"Klawiszem W przesuwamy obiekt w osi x w przód",asf);
+        ads.emplace_back(L" a S w tył.",asf);
+        ads.emplace_back(L"Klawiszem D przesuwamy obiekt w osi y w przód",asf);
+        ads.emplace_back(L" a A w tył.",asf);
+        ads.emplace_back(L"Klawiszem P urachamiamy pause.",asf);
+        ads.emplace_back(L"Spacją przesuwamy w dół obiekt.",asf);
+        ads.emplace_back(L"Sroolem myszy obracmy plansze.",asf);
+        ads.emplace_back(L"Autor Wiktor Rosiński",asf);
+        ads.emplace_back(L"Nacińskij BackSpace a wrócić do Menu",asf);
+        for(auto &reca : ads)
+        {
+            reca.setPosition(100,i*50);
+            reca.setFillColor(sf::Color::White);
+            reca.setCharacterSize(30);
+            i++;
+        }
+        break;
+    case 10:
+        ads.emplace_back(L"Zalecane ilość kratek to 5 do 21 dla x y z oraz powinna byc nieparzysta",asf);
+         ads.emplace_back(L" Podaj illośc kratek x",asf);
+         ads[0].setPosition(100,100);
+         ads[0].setFillColor(sf::Color::White);
+         ads[0].setCharacterSize(20);
+         ads[1].setPosition(100,200);
+         ads[1].setFillColor(sf::Color::White);
+         ads[1].setCharacterSize(20);
+        break;
+    case 11:
+        ads.emplace_back(L"Zalecane ilość kratek to 5 do 21 dla x y z oraz powinna byc nieparzysta",asf);
+         ads.emplace_back(L" Podaj illośc kratek y",asf);
+         ads[0].setPosition(100,100);
+         ads[0].setFillColor(sf::Color::White);
+         ads[0].setCharacterSize(20);
+         ads[1].setPosition(100,200);
+         ads[1].setFillColor(sf::Color::White);
+         ads[1].setCharacterSize(20);
+         break;
+    case 12:
+        ads.emplace_back(L"Zalecane ilość kratek to 5 do 21 dla x y z oraz powinna byc nieparzysta",asf);
+         ads.emplace_back(L" Podaj illośc kratek z",asf);
+         ads[0].setPosition(100,100);
+         ads[0].setFillColor(sf::Color::White);
+         ads[0].setCharacterSize(20);
+         ads[1].setPosition(100,200);
+         ads[1].setFillColor(sf::Color::White);
+         ads[1].setCharacterSize(20);
+         break;
+    case 13:
+         ads.emplace_back(L"Podaj szybkość początkową {1,2,3}",asf);
+         ads[0].setPosition(100,100);
+         ads[0].setFillColor(sf::Color::White);
+         ads[0].setCharacterSize(20);
+
+         break;
+    case 14:
+         ads.emplace_back(L"Zdobyte punkty:",asf);
+         ads[0].setPosition(100,400);
+         ads[0].setFillColor(sf::Color::White);
+         ads[0].setCharacterSize(30);
+         ads.emplace_back(L"Podaj pseudonim:",asf);
+         ads[1].setPosition(400,100);
+         ads[1].setFillColor(sf::Color::White);
+         ads[1].setCharacterSize(30);
+
+         break;
+
+    case 4:
+        std::fstream file("wynik.txt");
+
+        if (file.is_open())
+        {
+            std::string line;
+            while (std::getline(file, line))
+            {
+                std::stringstream str(line);
+
+                ads.emplace_back(line,asf);
+            }
+        }
+        for(auto &reca : ads)
+        {
+            reca.setPosition(100,50+i*20);
+            reca.setFillColor(sf::Color::White);
+            reca.setCharacterSize(20);
+
+            i++;
+        }
+        sf::Text te(L"Nacińskij BackSpace a wrócić do Menu",asf);
+        te.setPosition(100,20);
+        te.setFillColor(sf::Color::White);
+        te.setCharacterSize(20);
+        ads.emplace_back(te);
+
+        break;
+
+
+   }
+
+
+    return ads;
+}

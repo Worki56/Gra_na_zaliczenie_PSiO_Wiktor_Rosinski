@@ -3,6 +3,7 @@
 
 Ksztalt::Ksztalt(Plansza & asde)
 {
+
     std::vector<int> asd;
     asd.emplace_back(asde.rozmiarx);
     asd.emplace_back(asde.rozmiary);
@@ -175,7 +176,7 @@ int Ksztalt::step(int  & kat, Ustalone & asd)
 
         }
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
         {
             for(auto &reca : elementy)
             {
@@ -193,7 +194,7 @@ int Ksztalt::step(int  & kat, Ustalone & asd)
             }
         }
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
             for(auto &reca : elementy)
             {
@@ -210,7 +211,7 @@ int Ksztalt::step(int  & kat, Ustalone & asd)
             }
         }
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
         {
             for(auto &reca : elementy)
             {
@@ -228,7 +229,7 @@ int Ksztalt::step(int  & kat, Ustalone & asd)
             }
         }
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::F))
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
             for(auto &reca : elementy)
             {
