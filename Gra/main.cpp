@@ -45,9 +45,7 @@ int main()
 
     std::vector<sf::Text> ads;
     sf::RenderWindow window3(sf::VideoMode(1024, 768), "Tetris3D", sf::Style::Default, sf::ContextSettings(32));
-    AllocConsole();
-    HWND okno = GetConsoleWindow();
-    ShowWindow( okno, SW_HIDE );
+
     int z =0;
     int op=1;
     int asdf=1;
@@ -205,7 +203,7 @@ int main()
                             z=0;
                         }
                     }
-                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
                     {
                         liczba12=std::stoi(liczba);
 
@@ -453,7 +451,7 @@ int main()
                              z=0;
                         }
                     }
-                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
                     {
                         op=12;
                     }

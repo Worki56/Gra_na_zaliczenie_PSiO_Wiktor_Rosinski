@@ -1,6 +1,6 @@
  QT -= core
 TEMPLATE = app
-CONFIG += console c++17
+
 CONFIG -= app_bundle
 CONFIG -= qt
 INCLUDEPATH += "C:/SFML-2.5.1/include"
