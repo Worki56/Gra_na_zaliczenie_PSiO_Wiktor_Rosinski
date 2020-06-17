@@ -26,7 +26,7 @@ int main()
     int punkty;
     int uwaga=0;
     sf::Text uwaga1(L"Podałeś zła wartośc",font);
-    uwaga1.setPosition(200,200);
+    uwaga1.setPosition(400,200);
     uwaga1.setFillColor(sf::Color::White);
     uwaga1.setCharacterSize(30);
     std::vector<int> wejs;

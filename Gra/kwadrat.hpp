@@ -1,6 +1,5 @@
 #ifndef kwadrat_hpp
 #define kwadrat_hpp
-//#include "ksztalt.hpp"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
