@@ -6,19 +6,19 @@
 
 ### Użyte Biblioteki w tym z SFML w wersji 2.5.1:
 
- 1. <SFML/Graphics.hpp>
- 2. <SFML/OpenGL.hpp>
- 3. <GL/glu.h>
- 4. <iostream>
- 5. <cstdlib>
- 6. <ctime>
- 7. <string>
- 8. <vector>
- 9. <memory>
- 10. <math.h>
- 11. <fstream>
- 12. <sstream>
- 13. <string>
+ 1. SFML/Graphics.hpp
+ 2. SFML/OpenGL.hpp
+ 3. GL/glu.h
+ 4. iostream
+ 5. cstdlib
+ 6. ctime
+ 7. string
+ 8. vector
+ 9. memory
+ 10. math.h
+ 11. fstream
+ 12. sstream
+ 13. string
 
 
 
